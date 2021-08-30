@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\OrdersExport;
 use App\Models\Orders;
-use Facade\FlareClient\View;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class OrdersController extends Controller
 {
@@ -13,9 +14,17 @@ class OrdersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        // dd($request->all());
+
+        if ($request->has('export')) {
+            return Excel::download(new OrdersExport, 'orders.xlsx');
+        }
+
         $orders = Orders::all();
+
+        dd($orders);
 
         return view('orders.index', compact('orders'));
     }
@@ -84,5 +93,11 @@ class OrdersController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function export() 
+    {
+        dd('asdasdasd');
+        return Excel::download(new OrdersExport, 'orders.xlsx');
     }
 }

@@ -13,6 +13,7 @@ class Orders extends Model
         'sales_order', 
         'billing_document', 
         'api_order_id', 
-        'response'
+        'response',
+        'is_return'
     ];
 }

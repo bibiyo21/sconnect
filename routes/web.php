@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\ReturnsController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,5 +25,17 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
         return view('dashboard');
     })->name('dashboard');
 });
-Route::resource('orders', OrdersController::class);
-Route::resource('returns', ReturnsController::class)->only('index');
+
+Route::group(["middleware" => 'auth'], function () {
+    // Exports
+    Route::get('/orders/export', 'App\Http\Controllers\OrdersController@export');
+    Route::get('/returns/export', [ReturnsController::class, 'export']);
+
+    //resources
+    Route::resource('orders', OrdersController::class);
+    Route::resource('returns', ReturnsController::class)->only('index');
+    Route::resource('users', UserController::class)->except('create', 'store');
+
+    
+});
+
