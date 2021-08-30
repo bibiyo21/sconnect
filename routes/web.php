@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\OrdersController;
+use App\Http\Controllers\ReturnsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,21 +15,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+    return redirect('/login');
+});
 
 Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
 });
-
-// Route::middleware(['auth:sanctum', 'verified'], function () {
-//     Route::get('/', function () {
-//         return view('welcome');
-//     });
-// });
-// ->get('/dashboard', function () {
-//     return view('dashboard');
-// })->name('dashboard');
+Route::resource('orders', OrdersController::class);
+Route::resource('returns', ReturnsController::class)->only('index');

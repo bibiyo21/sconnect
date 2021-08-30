@@ -45,7 +45,7 @@ services:
         depends_on:            
             - mysql
         ports:
-            - 8085:80
+            - 8082:80
         environment:
             PMA_HOST: mysql
             MYSQL_ROOT_PASSWORD: ${DB_PASSWORD} 
