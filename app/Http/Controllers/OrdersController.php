@@ -24,7 +24,7 @@ class OrdersController extends Controller
 
         $orders = Orders::all();
 
-        dd($orders);
+        // dd($orders);
 
         return view('orders.index', compact('orders'));
     }
