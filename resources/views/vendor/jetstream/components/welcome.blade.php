@@ -4,6 +4,6 @@
     </div>
 
     <div class="mt-8 text-2xl">
-        Welcome Asus Integration Application
+        Welcome to Techroom Dashboard
     </div>
 </div>
