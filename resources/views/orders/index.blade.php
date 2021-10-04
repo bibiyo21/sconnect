@@ -22,8 +22,8 @@
                     </form>
                 </div>
             </div>
-            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                <table class="table table-hover table-condensed">
+            <div class="bg-whiteshadow-xl sm:rounded-lg table-responsive">
+                <table class="table table-hover table-condensed ">
                     <thead>
                         <tr>
                             <th scope="col">Action</th>
@@ -38,6 +38,28 @@
                             <th scope="col">Product name</th>
                             <th scope="col">Variation Name</th>
                             <th scope="col">Quantity</th>
+                            <th scope="col">SKU</th>
+                            <th scope="col">Product Line</th>
+                            <th scope="col">Country</th>
+                            <th scope="col">Sub Category</th>
+                            <th scope="col">ASUS model name</th>
+                            <th scope="col">UN/DG code</th>
+                            <th scope="col">PI Code</th>
+                            <th scope="col">Pieces per carton</th>
+                            <th scope="col">Weight</th>
+                            <th scope="col">Weight unit</th>
+                            <th scope="col">Width</th>
+                            <th scope="col">Height</th>
+                            <th scope="col">Length</th>
+                            <th scope="col">serial number</th>
+                            <th scope="col">Box outer length</th>
+                            <th scope="col">Box outer width</th>
+                            <th scope="col">Box outer width</th>
+                            <th scope="col">Box outer height</th>
+                            <th scope="col">Dimension Unit</th>
+                            <th scope="col">Country of origin</th>
+                            <th scope="col">Product Type</th>
+                            <th scope="col">HTS code</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -63,6 +85,28 @@
                             <td>sample</td>
                             <td>data</td>
                             <td>here</td>
+                            <td>Lorem</td>
+                            <td>Ipsum</td>
+                            <td>Simple</td>
+                            <td>Dummy</td>
+                            <td>text</td>
+                            <td>to</td>
+                            <td>fill</td>
+                            <td>in</td>
+                            <td>sample</td>
+                            <td>data</td>
+                            <td>here</td>
+                            <td>Lorem</td>
+                            <td>Ipsum</td>
+                            <td>Simple</td>
+                            <td>Dummy</td>
+                            <td>text</td>
+                            <td>to</td>
+                            <td>fill</td>
+                            <td>in</td>
+                            <td>sample</td>
+                            <td>data</td>
+                            <td>here</td>
                         </tr>
                         <tr>
                             <td>
@@ -86,9 +130,31 @@
                             <td>sample</td>
                             <td>data</td>
                             <td>here</td>
+                            <td>Lorem</td>
+                            <td>Ipsum</td>
+                            <td>Simple</td>
+                            <td>Dummy</td>
+                            <td>text</td>
+                            <td>to</td>
+                            <td>fill</td>
+                            <td>in</td>
+                            <td>sample</td>
+                            <td>data</td>
+                            <td>here</td>
+                            <td>Lorem</td>
+                            <td>Ipsum</td>
+                            <td>Simple</td>
+                            <td>Dummy</td>
+                            <td>text</td>
+                            <td>to</td>
+                            <td>fill</td>
+                            <td>in</td>
+                            <td>sample</td>
+                            <td>data</td>
+                            <td>here</td>
                         </tr>
                         <tr>
-                        <td>
+                            <td>
                                 <button class="btn btn-primary" 
                                     data-toggle="modal" 
                                     data-target="#orderModal" 
@@ -98,6 +164,28 @@
                                     Send
                                 </button>
                             </td>
+                            <td>Lorem</td>
+                            <td>Ipsum</td>
+                            <td>Simple</td>
+                            <td>Dummy</td>
+                            <td>text</td>
+                            <td>to</td>
+                            <td>fill</td>
+                            <td>in</td>
+                            <td>sample</td>
+                            <td>data</td>
+                            <td>here</td>
+                            <td>Lorem</td>
+                            <td>Ipsum</td>
+                            <td>Simple</td>
+                            <td>Dummy</td>
+                            <td>text</td>
+                            <td>to</td>
+                            <td>fill</td>
+                            <td>in</td>
+                            <td>sample</td>
+                            <td>data</td>
+                            <td>here</td>
                             <td>Lorem</td>
                             <td>Ipsum</td>
                             <td>Simple</td>
