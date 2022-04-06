@@ -5,4 +5,4 @@
 
 <!-- <img width="150" src="{{ asset('/vendor/techroom_logo.png') }}" /> -->
 
-<h2 class="text-xl"><b>StartUp</b> </h2>
+<h2 class="text-xl"><b>Cognetics StartUp</b> </h2>

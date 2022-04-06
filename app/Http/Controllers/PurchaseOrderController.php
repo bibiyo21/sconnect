@@ -16,7 +16,9 @@ class PurchaseOrderController extends Controller
      */
     public function index()
     {
-        //
+        $purchaseOrders = PurchaseOrder::all();
+
+        return view('samsung.purchase-order.index', compact('purchaseOrders'));
     }
 
     /**
