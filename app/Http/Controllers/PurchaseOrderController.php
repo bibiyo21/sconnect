@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PurchaseOrderCreateRequest;
 use App\Models\PurchaseOrder;
 use Illuminate\Http\Request;
 
@@ -33,9 +34,20 @@ class PurchaseOrderController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PurchaseOrderCreateRequest $request)
     {
-        //
+        $purcaseOrder = PurchaseOrder::create([
+            "poNumber" => $request->get('poNumber'),
+            "siteCode" => $request->get('siteCode'),
+            "orderDate" => $request->get('orderDate'),
+            "deliveryMode" => $request->get('deliveryMode'),
+            "paymentMethod" => $request->get('paymentMethod'),
+            "comment" => $request->get('comment'),
+            "sales_order" => $request->get('sales_order'),
+            "api_order_id" => $request->get('api_order_id'),
+        ]);
+
+        dd($purcaseOrder);
     }
 
     /**

@@ -34,6 +34,7 @@ class SamsungApiKeepAlive
             $samsungApiResponse = json_decode($response->getBody()->getContents(), true);
             session()->put('samsung_token', $samsungApiResponse['token']);
         }
+        
         return $next($request);
     }
 }

@@ -26,8 +26,9 @@ class PurchaseOrderCreateRequest extends FormRequest
         return [
             'poNumber' => 'required',
             'siteCode' => 'required',
-            'orderDate' => 'required|date_format:YmdH:i:s',
+            'orderDate' => 'required|date_format:YmdHis',
             'deliveryMode' => 'required',
+            'items' => 'required'
         ];
     }
 }

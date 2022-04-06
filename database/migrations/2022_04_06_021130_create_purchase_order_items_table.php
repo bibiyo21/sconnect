@@ -15,7 +15,7 @@ class CreatePurchaseOrderItemsTable extends Migration
     {
         Schema::create('purchase_order_items', function (Blueprint $table) {
             $table->id();
-            $table->integer('product_order_id');
+            $table->integer('purchase_order_id');
             $table->string('bundleCode')->nullable();
             $table->string('modelCode');
             $table->integer('orderQuantity');
