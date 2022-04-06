@@ -35,7 +35,5 @@ Route::group(["middleware" => 'auth'], function () {
     Route::resource('orders', OrdersController::class);
     Route::resource('returns', ReturnsController::class)->only('index');
     Route::resource('users', UserController::class)->except('create', 'store');
-
-    
 });
 
