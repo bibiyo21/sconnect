@@ -134,6 +134,7 @@ class PurchaseOrderController extends Controller
 
         $purchaseOrder->billing_document = $payload['billing_document'];
         $purchaseOrder->sales_order = $payload['sales_order'];
+        $purchaseOrder->date_sent = Carbon::now()->format('Y-m-d');
         $purchaseOrder->status = $payload['status'];
         $purchaseOrder->remarks = $payload['remarks'];
 
