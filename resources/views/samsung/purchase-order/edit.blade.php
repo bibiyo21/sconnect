@@ -22,6 +22,9 @@
             @if ($errors->has('api_error'))
               {{ $errors['api_error'] }}
             @else
+            <pre>
+              {{ print_r($errors->all()) }}
+            </pre>
               Please correct the following errors in the forms
             @endif
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -72,7 +75,11 @@
 
               <div class="mb-3">
                 <label for="remarks" class="block font-medium text-sm text-gray-700">Remarks</label>
-                <textarea name="remarks" row="3 id=" remarks" class="{{ $errors->has('remarks') ? 'is-invalid' : '' }} form-control block rounded-md shadow-sm mt-1 block w-full" value="{{ old('remarks', $purchaseOrder['remarks']) }}"></textarea>
+                <textarea 
+                  name="remarks" 
+                  row="3" 
+                  id="remarks" 
+                  class="{{ $errors->has('remarks') ? 'is-invalid' : '' }} form-control block rounded-md shadow-sm mt-1 block w-full" >{{ old('remarks', $purchaseOrder['remarks']) }}</textarea>
                 @if ($errors->has('remarks'))
                   <div id="validationServerUsernameFeedback" class="invalid-feedback">
                     This is required.

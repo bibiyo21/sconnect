@@ -24,7 +24,7 @@ class PurchaseOrderUpdateRequest extends FormRequest
             'item' => 'required',
             'item.*.orderQuantity' => 'required',
             'item.*.invoiceQuantity' => 'required',
-            'item.*.orderPrice' => 'required',
+            'item.*.price' => 'required',
             'item.*.invoicePrice' => 'required',
             'item.*.orderQuantity' => 'required',
             'item.*.deliveryDate' => 'required',

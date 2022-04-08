@@ -101,7 +101,7 @@ class PurchaseOrderController extends Controller
             "billing_document" => $request->get('billing_document', ''),
             "sales_order" => $request->get('sales_order', ''),
             "status" => $request->get('status', ''),
-            "remarks" => $request->get('status', ''),
+            "remarks" => trim($request->get('remarks', '')),
         ];
 
         foreach ($rawPayload['item'] as $itemId => $item) {
