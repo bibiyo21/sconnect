@@ -1,11 +1,6 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Purchase Orders') }}
-        </h2>
-    </x-slot>
+    @include('samsung.navbar')
     
-
     <div class="py-12">
         <div class="mx-auto sm:px-6 lg:px-8">
             <!-- <div class="card mb-2">
@@ -27,7 +22,7 @@
                 <table class="table table-hover table-condensed ">
                     <thead>
                         <tr>
-                            <th scope="col">Action</th>
+                            <!-- <th scope="col">Action</th> -->
                             <th scope="col">Date sent</th>
                             <th scope="col">Sales Order</th>
                             <th scope="col">Billing Document</th>
@@ -42,7 +37,7 @@
                     <tbody>
                         @foreach ($purchaseOrders as $purchaseOrder) 
                             <tr>
-                                <td>
+                                <!-- <td>
                                     <div class="btn-group">
                                         <button class="btn btn-primary" 
                                             data-bs-toggle="modal" 
@@ -62,12 +57,12 @@
                                         </button>
                                     </div>
                                     
-                                </td>
+                                </td> -->
                                 <td>{{ $purchaseOrder['date_sent'] }}</td>
                                 <td>{{ $purchaseOrder['sales_order'] }}</td>
                                 <td>{{ $purchaseOrder['billing_document'] }}</td>
                                 <td>{{ $purchaseOrder['orderDate'] }}</td>
-                                <td>{{ $purchaseOrder['poNumber'] }}</td>
+                                <td><a class="text-primary" href="{{route('purchase-orders.edit', $purchaseOrder['id'])}}">{{ $purchaseOrder['poNumber'] }}</a></td>
                                 <td>{{ $purchaseOrder['siteCode'] }}</td>
                                 <td>{{ $purchaseOrder['deliveryMode'] }}</td>
                                 <td>{{ $purchaseOrder['paymentMethod'] }}</td>
@@ -144,4 +139,8 @@
 
         purchaseOrderItemTitle.textContent = 'Purchase order items:  ' + poNumber
     })
+
+    const axios = require('axios');
+
+    
 </script>

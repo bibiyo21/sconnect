@@ -4,8 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
-use Illuminate\Http\Response as HttpResponse;
-use Illuminate\Support\Facades\Response;
+use Illuminate\Http\Response;
 use Illuminate\Validation\ValidationException;
 
 class PurchaseOrderCreateRequest extends FormRequest
@@ -28,7 +27,7 @@ class PurchaseOrderCreateRequest extends FormRequest
 
     protected function failedValidation(Validator $validator)
     {
-        $response = new HttpResponse([
+        $response = new Response([
             'resultCode' => 'Failed',
             'message' => $validator->errors()
         ], 422);

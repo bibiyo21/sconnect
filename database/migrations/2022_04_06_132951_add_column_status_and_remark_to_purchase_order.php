@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddColumnDateSentToPurchaseOrder extends Migration
+class AddColumnStatusAndRemarkToPurchaseOrder extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,8 @@ class AddColumnDateSentToPurchaseOrder extends Migration
     public function up()
     {
         Schema::table('purchase_orders', function (Blueprint $table) {
-            $table->string('date_sent')->nullable();
+            $table->string('status')->nullable();
+            $table->string('remarks')->nullable();
         });
     }
 
@@ -26,7 +27,8 @@ class AddColumnDateSentToPurchaseOrder extends Migration
     public function down()
     {
         Schema::table('purchase_orders', function (Blueprint $table) {
-            $table->dropColumn('date_sent');
+            $table->dropColumn('status');
+            $table->dropColumn('remarks');
         });
     }
 }

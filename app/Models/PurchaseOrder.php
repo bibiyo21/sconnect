@@ -18,5 +18,7 @@ class PurchaseOrder extends Model
         'comment',
         'sales_order',
         'api_order_id',
+        'remarks',
+        'status',
     ];
 }

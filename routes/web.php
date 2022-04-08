@@ -40,6 +40,7 @@ Route::group(["middleware" => 'auth'], function () {
     Route::resource('orders', OrdersController::class);
     Route::resource('returns', ReturnsController::class)->only('index');
     Route::resource('users', UserController::class)->except('create', 'store');
-    Route::resource('samsung/purchase-orders', PurchaseOrderController::class)->except('destroy');
+    Route::resource('samsung/purchase-orders', PurchaseOrderController::class)->only('index','edit');
+    Route::resource('samsung/purchase-orders', PurchaseOrderController::class)->only('update')->middleware('samsungkeepalive');
 });
 
