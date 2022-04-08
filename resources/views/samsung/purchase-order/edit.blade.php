@@ -22,9 +22,6 @@
             @if ($errors->has('api_error'))
               {{ $errors['api_error'] }}
             @else
-            <pre>
-              {{ print_r($errors->all()) }}
-            </pre>
               Please correct the following errors in the forms
             @endif
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
