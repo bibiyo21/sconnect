@@ -126,7 +126,7 @@
                     name="item[{{$purchaseOrderItem->id}}][deliveryDate]" 
                     id="deliveryDate" 
                     class="{{ $errors->has('item.'. $purchaseOrderItem->id .'.deliveryDate') ? 'is-invalid' : '' }} form-control block rounded-md shadow-sm mt-1 block w-full" 
-                    value="{{ !empty($purchaseOrderItem->deliveryDate) || old('item.'. $purchaseOrderItem->id .'.deliveryDate') ? date('Y-m-d', strtotime('deliveryDate', old($purchaseOrderItem->deliveryDate))) : '' }}" />
+                    value="{{ !empty($purchaseOrderItem->deliveryDate) || old('item.'. $purchaseOrderItem->id .'.deliveryDate') ? date('Y-m-d', strtotime(old('item.'. $purchaseOrderItem->id .'.deliveryDate', $purchaseOrderItem->deliveryDate))) : '' }}" />
                   @if ($errors->has('item.'. $purchaseOrderItem->id .'.deliveryDate'))
                     <div id="validationServerUsernameFeedback" class="invalid-feedback">
                       This is required.
