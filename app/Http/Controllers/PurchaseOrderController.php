@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PurchaseOrderCreateRequest;
 use App\Http\Requests\PurchaseOrderUpdateRequest;
+use App\Models\Product;
 use App\Models\PurchaseOrder;
 use App\Models\PurchaseOrderItem;
 use Carbon\Carbon;
@@ -20,8 +21,7 @@ class PurchaseOrderController extends Controller
      */
     public function index()
     {
-        $purchaseOrders = PurchaseOrder::all();
-
+        $purchaseOrders = PurchaseOrder::orderBy('updated_at')->get()->all();
         return view('samsung.purchase-order.index', compact('purchaseOrders'));
     }
 
@@ -33,16 +33,18 @@ class PurchaseOrderController extends Controller
      */
     public function store(PurchaseOrderCreateRequest $request)
     {
-        $purcaseOrder = PurchaseOrder::create([
-            "poNumber" => $request->get('poNumber'),
-            "siteCode" => $request->get('siteCode'),
-            "orderDate" => $request->get('orderDate'),
-            "deliveryMode" => $request->get('deliveryMode'),
-            "paymentMethod" => $request->get('paymentMethod'),
-            "comment" => $request->get('comment'),
-            "sales_order" => $request->get('sales_order'),
-            "api_order_id" => $request->get('api_order_id'),
-        ]);
+        $purcaseOrder = PurchaseOrder::updateOrCreate(
+            ["poNumber" => $request->get('poNumber')],
+            [
+                "siteCode" => $request->get('siteCode'),
+                "orderDate" => $request->get('orderDate'),
+                "deliveryMode" => $request->get('deliveryMode'),
+                "paymentMethod" => $request->get('paymentMethod'),
+                "comment" => $request->get('comment'),
+                "sales_order" => $request->get('sales_order'),
+                "api_order_id" => $request->get('api_order_id'),
+            ]
+        );
 
         $purchaseOrderId = $purcaseOrder->id;
         foreach ($request->get('items') as $key => $value) {
@@ -51,20 +53,24 @@ class PurchaseOrderController extends Controller
             $quantity = intval($value['orderQuantity']);
             $discountedPrice = !empty($value['discountedPrice']) ? $value['discountedPrice'] : $price - $discount;
             $totalPrice = !empty($value['totalPrice']) ? $value['totalPrice'] : $discountedPrice * $quantity;
-            
-            $purchaseOrderItem = PurchaseOrderItem::create([
-                'purchase_order_id' => $purchaseOrderId,
-                'bundleCode' => $value['bundleCode'],
-                'modelCode' => $value['modelCode'],
-                'orderQuantity' => $quantity,
-                'price' =>  $price,
-                'discount' => $discount,
-                'discountedPrice' => $discountedPrice,
-                'totalPrice' => $totalPrice,
-                'taxcode' => $value['taxcode'],
-            ]);
 
-            // $purchaseOrderItemId = $purchaseOrderItem->id;
+            Product::firstOrCreate([
+                "modelCode" => $value['modelCode']
+            ]);
+            
+            PurchaseOrderItem::create(
+                [
+                    'purchase_order_id' => $purchaseOrderId,
+                    'bundleCode' => $value['bundleCode'],
+                    'orderQuantity' => $quantity,
+                    'price' =>  $price,
+                    'discount' => $discount,
+                    'discountedPrice' => $discountedPrice,
+                    'totalPrice' => $totalPrice,
+                    'taxcode' => $value['taxcode'],
+                    'modelCode' => $value['modelCode']
+                ]
+            );
         }
 
         return response()->json([
@@ -112,7 +118,7 @@ class PurchaseOrderController extends Controller
             $quantity = intval($item['orderQuantity']);
             $deliveryDate = Carbon::parse($item['deliveryDate'])->format('Ymd');
             
-            $payload['items'][] =  [
+            $payload['items'][$itemId] =  [
                 "modelCode" => $purchaseOrderItem->modelCode,
                 "orderQuantity" => $quantity,
                 "invoiceQuantity" => $item['invoiceQuantity'],

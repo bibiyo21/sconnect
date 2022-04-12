@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\OrdersController;
+use App\Http\Controllers\ProductCatalogueController;
 use App\Http\Controllers\PurchaseOrderController;
 use App\Http\Controllers\ReturnsController;
 use App\Http\Controllers\UserController;
@@ -41,6 +42,12 @@ Route::group(["middleware" => 'auth'], function () {
     Route::resource('returns', ReturnsController::class)->only('index');
     Route::resource('users', UserController::class)->except('create', 'store');
     Route::resource('samsung/purchase-orders', PurchaseOrderController::class)->only('index','edit');
-    Route::resource('samsung/purchase-orders', PurchaseOrderController::class)->only('update')->middleware('samsungkeepalive');
+    Route::resource('samsung/product-catalogues', ProductCatalogueController::class)->only('index', 'create');
+
+    Route::group(["middleware" => 'samsungkeepalive'], function () {
+        Route::resource('samsung/purchase-orders', PurchaseOrderController::class)->only('update');
+        Route::resource('samsung/product-catalogues', ProductCatalogueController::class)->only('store');
+
+    });
 });
 

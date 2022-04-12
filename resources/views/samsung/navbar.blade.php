@@ -6,5 +6,8 @@
         <li class="nav-item">
             <a class="nav-link active" href="{{ route('purchase-orders.index') }}">Purchase Order</a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('product-catalogues.create') }}">Product Catalogue</a>
+        </li>
     </ul>
 </x-slot>

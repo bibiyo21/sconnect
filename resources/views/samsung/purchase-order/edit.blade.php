@@ -44,7 +44,7 @@
                   <option value="D" {{ $purchaseOrder->status == "D" || old('status') == "D" ? "selected" : ""}}>Delivered</option>
                 </select>
                 @if ($errors->has('status'))
-                  <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                  <div  class="invalid-feedback">
                     This is required.
                   </div>
                 @endif
@@ -54,7 +54,7 @@
                 <label for="billing_document" class="block font-medium text-sm text-gray-700">Billing Document</label>
                 <input type="text" name="billing_document" id="billing_document" class="{{ $errors->has('billing_document') ? 'is-invalid' : '' }} form-control block rounded-md shadow-sm mt-1 block w-full" value="{{ old('billing_document', $purchaseOrder['billing_document']) }}" />
                 @if ($errors->has('billing_document'))
-                  <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                  <div  class="invalid-feedback">
                     This is required.
                   </div>
                 @endif
@@ -64,7 +64,7 @@
                 <label for="sales_order" class="block font-medium text-sm text-gray-700">Sales Order</label>
                 <input type="text" name="sales_order" id="sales_order" class="{{ $errors->has('sales_order') ? 'is-invalid' : '' }} form-control block rounded-md shadow-sm mt-1 block w-full" value="{{ old('sales_order', $purchaseOrder['sales_order']) }}" />
                 @if ($errors->has('sales_order'))
-                  <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                  <div  class="invalid-feedback">
                     This is required.
                   </div>
                 @endif
@@ -78,7 +78,7 @@
                   id="remarks" 
                   class="{{ $errors->has('remarks') ? 'is-invalid' : '' }} form-control block rounded-md shadow-sm mt-1 block w-full" >{{ old('remarks', $purchaseOrder['remarks']) }}</textarea>
                 @if ($errors->has('remarks'))
-                  <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                  <div  class="invalid-feedback">
                     This is required.
                   </div>
                 @endif
@@ -88,16 +88,16 @@
 
               @foreach ($purchaseOrderItems as $purchaseOrderItem)
               <fieldset class="border p-3 mb-3">
-                <!-- <div class="mb-3">
-                                        <label for="modelCode" class="block font-medium text-sm text-gray-700">Model Code</label>
-                                        <input type="text" name="item[{{$purchaseOrderItem->id}}][modelCode]" id="modelCode" class="form-control block rounded-md shadow-sm mt-1 block w-full" value="{{ $purchaseOrderItem->modelCode }}" />
-                                    </div> -->
+                <div class="mb-3">
+                  <label for="modelCode" class="block font-medium text-sm text-gray-700">Model Code</label>
+                  <input disabled readonly type="text" name="item[{{$purchaseOrderItem->id}}][modelCode]" id="modelCode" class="form-control block rounded-md shadow-sm mt-1 block w-full" value="{{ $purchaseOrderItem->modelCode }}" />
+                </div>
 
                 <div class="mb-3">
                   <label for="orderQuantity" class="block font-medium text-sm text-gray-700">Order Quantity</label>
                   <input type="text" name="item[{{$purchaseOrderItem->id}}][orderQuantity]" id="orderQuantity" class="{{ $errors->has('item.'. $purchaseOrderItem->id .'.orderQuantity') ? 'is-invalid' : '' }} form-control block rounded-md shadow-sm mt-1 block w-full" value="{{ old('item.'. $purchaseOrderItem->id .'.orderQuantity', $purchaseOrderItem->orderQuantity) }}" />
                   @if ($errors->has('item.'. $purchaseOrderItem->id .'.orderQuantity'))
-                    <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                    <div  class="invalid-feedback">
                       This is required.
                     </div>
                   @endif
@@ -107,7 +107,7 @@
                   <label for="invoiceQuantity" class="block font-medium text-sm text-gray-700">Invoice Quantity</label>
                   <input type="text" name="item[{{$purchaseOrderItem->id}}][invoiceQuantity]" id="invoiceQuantity" class="{{ $errors->has('item.'. $purchaseOrderItem->id .'.invoiceQuantity') ? 'is-invalid' : '' }} form-control block rounded-md shadow-sm mt-1 block w-full" value="{{ old('item.'. $purchaseOrderItem->id .'.invoiceQuantity', $purchaseOrderItem->invoiceQuantity) }}" />
                   @if ($errors->has('item.'. $purchaseOrderItem->id .'.invoiceQuantity'))
-                    <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                    <div  class="invalid-feedback">
                       This is required.
                     </div>
                   @endif
@@ -117,7 +117,7 @@
                   <label for="invoicePrice" class="block font-medium text-sm text-gray-700">Invoice Price</label>
                   <input type="text" name="item[{{$purchaseOrderItem->id}}][invoicePrice]" id="invoicePrice" class="{{ $errors->has('item.'. $purchaseOrderItem->id .'.invoicePrice') ? 'is-invalid' : '' }} form-control block rounded-md shadow-sm mt-1 block w-full" value="{{ old('item.'. $purchaseOrderItem->id .'.invoicePrice', $purchaseOrderItem->invoicePrice) }}" />
                   @if ($errors->has('item.'. $purchaseOrderItem->id .'.invoicePrice'))
-                    <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                    <div  class="invalid-feedback">
                       This is required.
                     </div>
                   @endif
@@ -132,7 +132,7 @@
                     class="{{ $errors->has('item.'. $purchaseOrderItem->id .'.deliveryDate') ? 'is-invalid' : '' }} form-control block rounded-md shadow-sm mt-1 block w-full" 
                     value="{{ !empty($purchaseOrderItem->deliveryDate) || old('item.'. $purchaseOrderItem->id .'.deliveryDate') ? date('Y-m-d', strtotime(old('item.'. $purchaseOrderItem->id .'.deliveryDate', $purchaseOrderItem->deliveryDate))) : '' }}" />
                   @if ($errors->has('item.'. $purchaseOrderItem->id .'.deliveryDate'))
-                    <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                    <div  class="invalid-feedback">
                       This is required.
                     </div>
                   @endif
@@ -142,7 +142,7 @@
                   <label for="price" class="block font-medium text-sm text-gray-700">Order Price</label>
                   <input type="text" name="item[{{$purchaseOrderItem->id}}][price]" id="price" class="{{ $errors->has('item.'. $purchaseOrderItem->id .'.price') ? 'is-invalid' : '' }} form-control block rounded-md shadow-sm mt-1 block w-full" value="{{ old('item.'. $purchaseOrderItem->id .'.price', $purchaseOrderItem->price) }}" />
                   @if ($errors->has('item.'. $purchaseOrderItem->id .'.price'))
-                    <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                    <div  class="invalid-feedback">
                       This is required.
                     </div>
                   @endif
@@ -152,7 +152,7 @@
                   <label for="discount" class="block font-medium text-sm text-gray-700">Discount</label>
                   <input type="text" name="item[{{$purchaseOrderItem->id}}][discount]" id="discount" class="{{ $errors->has('item.'. $purchaseOrderItem->id .'.discount') ? 'is-invalid' : '' }} form-control block rounded-md shadow-sm mt-1 block w-full" value="{{ old('item.'. $purchaseOrderItem->id .'.discount', $purchaseOrderItem->discount) }}" />
                   @if ($errors->has('item.'. $purchaseOrderItem->id .'.discount'))
-                    <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                    <div  class="invalid-feedback">
                       This is required.
                     </div>
                   @endif
@@ -162,7 +162,7 @@
                   <label for="taxcode" class="block font-medium text-sm text-gray-700">Taxcode</label>
                   <input type="text" name="item[{{$purchaseOrderItem->id}}][taxcode]" id="taxcode" class="{{ $errors->has('item.'. $purchaseOrderItem->id .'.taxcode') ? 'is-invalid' : '' }} form-control block rounded-md shadow-sm mt-1 block w-full" value="{{ old('item.'. $purchaseOrderItem->id .'.taxcode', $purchaseOrderItem->taxcode) }}" />
                   @if ($errors->has('item.'. $purchaseOrderItem->id .'.taxcode'))
-                    <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                    <div  class="invalid-feedback">
                       This is required.
                     </div>
                   @endif
