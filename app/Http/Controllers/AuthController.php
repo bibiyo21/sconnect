@@ -14,7 +14,6 @@ class AuthController extends Controller
             "email" => $request->get('userID'),
             "password" => $request->get('password')
         ];
-        // dd($credentials, $request->only('email', 'password'));
 
         if (!Auth::attempt($credentials)) {
             return response()->json([
