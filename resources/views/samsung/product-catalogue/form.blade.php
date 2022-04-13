@@ -59,14 +59,14 @@
                 @endif
               </div>
 
-              <div class="mb-3">
+              <!-- <div class="mb-3">
                 <label for="paymentMethod" class="block font-medium text-sm text-gray-700">Payment method</label>
                 <select name="paymentMethod" id="paymentMethod" class="form-select block rounded-md shadow-sm mt-1 block w-full mb-2">
                   <option value="" selected disabled>Please Select Payment Method</option>
                   <option {{ old("paymentMethod") == "Cash" ? "selected" : ""  }} value="Cash">Cash</option>
                   <option {{ old("paymentMethod") == "Credit" ? "selected" : ""  }} value="Credit">Credit</option>
                 </select>
-              </div>
+              </div> -->
 
               <div class="mb-3">
                 <label for="status" class="block font-medium text-sm text-gray-700">Status</label>

@@ -42,10 +42,11 @@ class ProductCatalogueController extends Controller
     public function store(ProductCatalogueCreateRequest $request)
     {
         $payload = $request->except('_token');
-        $payload['siteCode'] = env('SITE_CODE');
+        
+        // $payload['siteCode'] = env('SITE_CODE');
         $payload['datelist'][0]['startDate'] = Carbon::parse($payload['datelist'][0]['startDate'])->format('YmdHis');
         $payload['datelist'][0]['endDate'] = Carbon::parse($payload['datelist'][0]['endDate'])->format('YmdHis');
-
+        
         $response = Http::withToken(session('samsung_token'))
             ->acceptJson()
             ->post(env("SAMSUNG_SCONNECT_API") . self::PRODUCT_CATALOGUE_INTERFACE, ['catalogues' => [$payload]]);
