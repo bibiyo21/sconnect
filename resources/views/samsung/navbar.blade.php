@@ -9,5 +9,8 @@
         <li class="nav-item">
             <a class="nav-link" href="{{ route('product-catalogues.create') }}">Product Catalogue</a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('product-catalogues.create') }}">IMEI Return</a>
+        </li>
     </ul>
 </x-slot>

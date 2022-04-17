@@ -49,14 +49,16 @@ class ProductCatalogueController extends Controller
         // $payload['siteCode'] = env('SITE_CODE');
         $payload['datelist'][0]['startDate'] = Carbon::parse($payload['datelist'][0]['startDate'])->format('YmdHis');
         $payload['datelist'][0]['endDate'] = Carbon::parse($payload['datelist'][0]['endDate'])->format('YmdHis');
-        
+        $payload['datelist'][0]['price'] = (float) str_replace(',','',$payload['datelist'][0]['price']);
+
         $response = Http::withToken(session('samsung_token'))
             ->acceptJson()
             ->post(env("SAMSUNG_SCONNECT_API") . self::PRODUCT_CATALOGUE_INTERFACE, ['catalogues' => [$payload]]);
 
         if ($response->failed()) {
+            $apiErrorResponse = json_decode($response->body(), true);
             return redirect()->back()->withErrors([
-                "api_error" => "Cannot Connect to Samsung API. There something wrong with your request."
+                "api_error" => $apiErrorResponse['errors']
             ]);
         }
 
