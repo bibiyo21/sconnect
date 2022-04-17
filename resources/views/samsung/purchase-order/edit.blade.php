@@ -6,7 +6,7 @@
       <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
         <h2 class="p-3 h2">Edit Purchase Order : {{ $purchaseOrder['poNumber'] }}</h2>
 
-        <form method="post" action="{{ route('purchase-orders.update', $purchaseOrder->id) }}">
+        <form id="purchase-order-form" method="post" action="{{ route('purchase-orders.update', $purchaseOrder->id) }}">
 
           @if(session()->has('success'))
           <div class="alert alert-success alert-dismissible fade show m-4">
@@ -171,7 +171,7 @@
               @endforeach
             </div>
             <div class="flex items-center justify-end px-4 py-3 bg-gray-50 text-right sm:px-6">
-              <button class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:shadow-outline-gray disabled:opacity-25 transition ease-in-out duration-150">
+              <button id="save-button" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:shadow-outline-gray disabled:opacity-25 transition ease-in-out duration-150">
                 Update Purchase Order
               </button>
             </div>
@@ -181,3 +181,14 @@
     </div>
   </div>
 </x-app-layout>
+
+<script>  
+  var form = document.getElementById('purchase-order-form');
+
+  form.addEventListener("submit", function (event) {
+    var button = document.getElementById('save-button');
+
+    button.setAttribute('disabled', 'disabled');
+    button.classList.add('disabled');
+  })
+</script>
