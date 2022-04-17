@@ -22,19 +22,29 @@
                 <table class="table table-hover table-condensed ">
                     <thead>
                         <tr>
-                            <!-- <th scope="col">Action</th> -->
-                            <!-- <th scope="col">Date sent</th>
-                            <th scope="col">Sales Order</th>
-                            <th scope="col">Billing Document</th>
-                            <th scope="col">Order Date</th>
-                            <th scope="col">PO Number</th>
-                            <th scope="col">Site Code</th>
-                            <th scope="col">Delivery Mode</th>
-                            <th scope="col">Payment Method</th>
-                            <th scope="col">Comment</th> -->
+                            <th scope="col">Model Code</th>
+                            <th scope="col">Model Description</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Discount</th>
+                            <th scope="col">Date Start</th>
+                            <th scope="col">Date End</th>
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach ($productCatalogues as $productCatalogue)
+                            <tr>
+                                <td>{{ $productCatalogue->modelCode }}</td>
+                                <td>{{ $productCatalogue->modelDesc }}</td>
+                                <td>{{ $productCatalogue->price }}</td>
+                                <td>{{ $productCatalogue->status }}</td>
+                                <td>{{ $productCatalogue->discount }}</td>
+                                <td>{{ $productCatalogue->discount }}</td>
+                                <td>{{ $productCatalogue->startDate }}</td>
+                                <td>{{ $productCatalogue->endDate }}</td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>

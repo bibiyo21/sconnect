@@ -19,7 +19,8 @@ class ProductCatalogueController extends Controller
      */
     public function index()
     {
-        return view('samsung.product-catalogue.index');
+        $productCatalogues = ProductCatalogue::orderBy('created_at')->get()->all();
+        return view('samsung.product-catalogue.index', compact('productCatalogues'));
     }
 
     /**
