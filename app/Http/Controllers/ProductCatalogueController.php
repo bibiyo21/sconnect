@@ -29,8 +29,11 @@ class ProductCatalogueController extends Controller
      */
     public function create()
     {
-        $products = Product::orderBy('modelCode')->get()->all();
-        return view('samsung.product-catalogue.form', compact('products'));
+        // $products = Product::orderBy('modelCode')->get()->all();
+        return view(
+            'samsung.product-catalogue.form', 
+            // compact('products')
+        );
     }
 
     /**
@@ -69,50 +72,5 @@ class ProductCatalogueController extends Controller
             'success',
             'Model Add/Update'
         );
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\ProductCatalogue  $productCatalogue
-     * @return \Illuminate\Http\Response
-     */
-    public function show(ProductCatalogue $productCatalogue)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\ProductCatalogue  $productCatalogue
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(ProductCatalogue $productCatalogue)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\ProductCatalogue  $productCatalogue
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, ProductCatalogue $productCatalogue)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\ProductCatalogue  $productCatalogue
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(ProductCatalogue $productCatalogue)
-    {
-        //
     }
 }

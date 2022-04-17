@@ -34,7 +34,7 @@
           <!-- @method('PUT') -->
           <div class="shadow overflow-hidden sm:rounded-md">
             <div class="px-4 py-5 bg-white sm:p-6">
-              <div class="mb-3">
+              {{-- <div class="mb-3">
                 <label for="modelCode" class="block font-medium text-sm text-gray-700">Product</label>
                 <select name="modelCode" id="modelCode" class="{{ $errors->has('modelCode') ? 'is-invalid' : '' }} form-select block rounded-md shadow-sm mt-1 block w-full mb-2">
                   <option value="" selected disabled>Please select product</option>
@@ -47,10 +47,20 @@
                     {{ $errors->get('modelCode')[0] }}
                   </div>
                 @endif
+              </div> --}}
+
+              <div class="mb-3">
+                <label for="modelCode" class="block font-medium text-sm text-gray-700">Model Code</label>
+                <input value="{{ old('modelCode') }}" type="text" name="modelCode" id="modelCode" class="{{ $errors->has('modelCode') ? 'is-invalid' : '' }} form-control block rounded-md shadow-sm mt-1 block w-full mb-2">
+                @if ($errors->has('modelCode'))
+                  <div class="invalid-feedback">
+                    {{ $errors->get('modelCode')[0] }}
+                  </div>
+                @endif
               </div>
 
               <div class="mb-3">
-                <label for="modelDesc" class="block font-medium text-sm text-gray-700">Product description</label>
+                <label for="modelDesc" class="block font-medium text-sm text-gray-700">Model description</label>
                 <input value="{{ old('modelDesc') }}" type="text" name="modelDesc" id="modelDesc" class="{{ $errors->has('modelDesc') ? 'is-invalid' : '' }} form-control block rounded-md shadow-sm mt-1 block w-full mb-2">
                 @if ($errors->has('modelDesc'))
                   <div class="invalid-feedback">
