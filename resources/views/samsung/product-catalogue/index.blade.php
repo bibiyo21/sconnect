@@ -3,6 +3,9 @@
     
     <div class="py-12">
         <div class="mx-auto sm:px-6 lg:px-8">
+            <div class="text-right">
+                <a href="{{ route('product-catalogues.create') }}" class="btn btn-primary text-right"> <i class="fas fa-plus"></i> Create Product Catalogue</a>
+            </div>
             <!-- <div class="card mb-2">
                 <div class="card-body">
                     <form class="form-inline" action="">
