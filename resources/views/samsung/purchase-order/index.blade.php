@@ -72,6 +72,7 @@
                     </tbody>
                 </table>
             </div>
+            {{ $purchaseOrders->links() }}
         </div>
     </div>
     

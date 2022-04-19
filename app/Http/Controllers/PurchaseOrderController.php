@@ -21,7 +21,7 @@ class PurchaseOrderController extends Controller
      */
     public function index()
     {
-        $purchaseOrders = PurchaseOrder::orderBy('updated_at')->get()->all();
+        $purchaseOrders = PurchaseOrder::orderBy('updated_at')->paginate(20);
         return view('samsung.purchase-order.index', compact('purchaseOrders'));
     }
 

@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ImeiReturnCreateRequest;
 use App\Models\ImeiReturn;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class ImeiReturnController extends Controller
 {
+    const IMEI_RETURN_INTERFACE = 'retailerpoapi/returnitem';
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +17,8 @@ class ImeiReturnController extends Controller
      */
     public function index()
     {
-        //
+        $imeiReturns = ImeiReturn::orderBy('updated_at', 'desc')->paginate(20);
+        return view('samsung.imei-return.index', compact('imeiReturns'));
     }
 
     /**
@@ -24,7 +28,7 @@ class ImeiReturnController extends Controller
      */
     public function create()
     {
-        //
+        return view('samsung.imei-return.form');
     }
 
     /**
@@ -33,9 +37,37 @@ class ImeiReturnController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ImeiReturnCreateRequest $request)
     {
-        //
+        $payload = $request->except('_token');
+
+        $payload['siteCode'] = env('SITE_CODE');
+        $response = Http::withToken(session('samsung_token'))
+            ->acceptJson()
+            ->post(env("SAMSUNG_SCONNECT_API") . self::IMEI_RETURN_INTERFACE, ['polist' => [$payload]]);
+
+        if ($response->failed()) {
+            $apiErrorResponse = json_decode($response->body(), true);
+            return redirect()->back()->withErrors([
+                "api_error" => $apiErrorResponse['errors']
+            ]);
+        }
+
+        $payload['status'] = $payload['imeilist'][0]['status'];
+
+        $imei = $payload['imeilist'][0]['imei'];
+        unset($payload['imeilist'][0]['imei']);
+        unset($payload['imeilist']);
+
+        ImeiReturn::updateOrCreate(
+            ['imei' => $imei],
+            $payload
+        );
+
+        return redirect()->back()->with(
+            'success',
+            'IMEI Received'
+        );
     }
 
     /**

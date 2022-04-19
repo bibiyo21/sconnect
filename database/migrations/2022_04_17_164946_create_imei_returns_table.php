@@ -15,6 +15,10 @@ class CreateImeiReturnsTable extends Migration
     {
         Schema::create('imei_returns', function (Blueprint $table) {
             $table->id();
+            $table->string('poNumber');
+            $table->string('siteCode')->nullable();
+            $table->string('imei');
+            $table->string('status');
             $table->timestamps();
         });
     }

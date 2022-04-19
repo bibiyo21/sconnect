@@ -4,7 +4,7 @@
     <div class="py-12">
         <div class="mx-auto sm:px-6 lg:px-8">
             <div class="text-right">
-                <a href="{{ route('product-catalogues.create') }}" class="btn btn-primary text-right"> <i class="fas fa-plus"></i> Create Product Catalogue</a>
+                <a href="{{ route('imei-returns.create') }}" class="btn btn-primary text-right"> <i class="fas fa-paper-plane"></i> Send IMEI Return</a>
             </div>
             <!-- <div class="card mb-2">
                 <div class="card-body">
@@ -25,33 +25,23 @@
                 <table class="table table-hover table-condensed ">
                     <thead>
                         <tr>
-                            <th scope="col">Model Code</th>
-                            <th scope="col">Model Description</th>
-                            <th scope="col">Price</th>
+                            <th scope="col">PO Number</th>
+                            <th scope="col">IMEI</th>
                             <th scope="col">Status</th>
-                            <th scope="col">Price</th>
-                            <th scope="col">Discount</th>
-                            <th scope="col">Date Start</th>
-                            <th scope="col">Date End</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($productCatalogues as $productCatalogue)
+                        @foreach ($imeiReturns as $imeiReturn)
                             <tr>
-                                <td>{{ $productCatalogue->modelCode }}</td>
-                                <td>{{ $productCatalogue->modelDesc }}</td>
-                                <td>{{ $productCatalogue->price }}</td>
-                                <td>{{ $productCatalogue->status }}</td>
-                                <td>{{ $productCatalogue->discount }}</td>
-                                <td>{{ $productCatalogue->discount }}</td>
-                                <td>{{ $productCatalogue->startDate }}</td>
-                                <td>{{ $productCatalogue->endDate }}</td>
+                                <td>{{ $imeiReturn->poNumber }}</td>
+                                <td>{{ $imeiReturn->imei }}</td>
+                                <td>{{ $imeiReturn->status }}</td>
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
             </div>
-            {{ $productCatalogues->links() }}
+            {{ $imeiReturns->links() }}
         </div>
     </div>
     

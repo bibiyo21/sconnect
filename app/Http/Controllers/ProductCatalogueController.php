@@ -19,7 +19,7 @@ class ProductCatalogueController extends Controller
      */
     public function index()
     {
-        $productCatalogues = ProductCatalogue::orderBy('created_at', 'desc')->get()->all();
+        $productCatalogues = ProductCatalogue::orderBy('updated_at', 'desc')->paginate(20);
         return view('samsung.product-catalogue.index', compact('productCatalogues'));
     }
 
@@ -68,9 +68,16 @@ class ProductCatalogueController extends Controller
         $payload['discount'] = $payload['datelist'][0]['discount'];
         $payload['status'] = $payload['datelist'][0]['status'];
         $payload['price'] = $payload['datelist'][0]['price'];
+
+        $modelCode = $payload['modelCode'];
+        unset($payload['modelCode']);
         unset($payload['datelist']);
 
-        ProductCatalogue::create($payload);
+        ProductCatalogue::updateOrCreate(
+            ['modelCode' => $modelCode],
+            $payload
+        );
+
         return redirect()->back()->with(
             'success',
             'Model Add/Update'

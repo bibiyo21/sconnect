@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ImeiReturnController;
 use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\ProductCatalogueController;
 use App\Http\Controllers\PurchaseOrderController;
@@ -43,10 +44,12 @@ Route::group(["middleware" => 'auth'], function () {
     Route::resource('users', UserController::class)->except('create', 'store');
     Route::resource('samsung/purchase-orders', PurchaseOrderController::class)->only('index','edit');
     Route::resource('samsung/product-catalogues', ProductCatalogueController::class)->only('index', 'create');
+    Route::resource('samsung/imei-returns', ImeiReturnController::class)->only('index', 'create');
 
     Route::group(["middleware" => 'samsungkeepalive'], function () {
         Route::resource('samsung/purchase-orders', PurchaseOrderController::class)->only('update');
         Route::resource('samsung/product-catalogues', ProductCatalogueController::class)->only('store');
+        Route::resource('samsung/imei-returns', ImeiReturnController::class)->only('store');
 
     });
 });
