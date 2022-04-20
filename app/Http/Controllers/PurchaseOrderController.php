@@ -61,7 +61,7 @@ class PurchaseOrderController extends Controller
             PurchaseOrderItem::create(
                 [
                     'purchase_order_id' => $purchaseOrderId,
-                    'bundleCode' => $value['bundleCode'],
+                    'bundleCode' => $value['bundleCode'] ?? null,
                     'orderQuantity' => $quantity,
                     'price' =>  $price,
                     'discount' => $discount,

@@ -134,14 +134,6 @@
         var poId = buttonPoItem.getAttribute('data-purchase-order-id')
         var poNumber = buttonPoItem.getAttribute('data-purchase-order-number')
 
-        // fetch('http://example.com/movies.json')
-        //     .then(response => response.json())
-        //     .then(data => console.log(data));
-
         purchaseOrderItemTitle.textContent = 'Purchase order items:  ' + poNumber
     })
-
-    const axios = require('axios');
-
-    
 </script>
