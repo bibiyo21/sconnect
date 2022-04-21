@@ -11,22 +11,18 @@
           @if(session()->has('success'))
           <div class="alert alert-success alert-dismissible fade show m-4">
             {{ session()->get('success') }}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
           </div>
           @endif
 
           @if($errors->any())
           <div class="alert alert-danger alert-dismissible fade show m-4">
             @if ($errors->has('api_error'))
-              {{ $errors['api_error'] }}
+              @foreach ($errors->get('api_error') as $value)
+                <p> <?php echo $value[0] ?> </p>
+              @endforeach
             @else
               Please correct the following errors in the forms
             @endif
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
           </div>
           @endif
 

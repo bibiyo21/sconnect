@@ -17,8 +17,8 @@ class PurchaseOrderUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'billing_document' => 'required',
-            'sales_order' => 'required',
+            // 'billing_document' => 'required',
+            // 'sales_order' => 'required',
             'status' => 'required',
             'remarks' => 'required_if:status,R',
             'item' => 'required',
@@ -27,7 +27,7 @@ class PurchaseOrderUpdateRequest extends FormRequest
             'item.*.price' => 'required',
             'item.*.invoicePrice' => 'required',
             'item.*.orderQuantity' => 'required',
-            'item.*.deliveryDate' => 'required',
+            'item.*.deliveryDate' => 'required_if:status,D',
         ];
     }
 }

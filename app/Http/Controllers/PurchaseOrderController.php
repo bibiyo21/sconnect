@@ -103,11 +103,19 @@ class PurchaseOrderController extends Controller
     {
         $rawPayload = $request->all();
 
+
         $payload = [
             "billing_document" => $request->get('billing_document', ''),
             "sales_order" => $request->get('sales_order', ''),
             "status" => $request->get('status', ''),
             "remarks" => trim($request->get('remarks', '')),
+        ];
+
+        $payloadSamsung = [
+            "poNumber" => $purchaseOrder->poNumber,
+            "status" => $request->get('status', ''),
+            "remarks" => trim($request->get('remarks', '')),
+            'items' => []
         ];
 
         foreach ($rawPayload['item'] as $itemId => $item) {
@@ -117,7 +125,25 @@ class PurchaseOrderController extends Controller
             $discount = doubleval($item['discount']);
             $quantity = intval($item['orderQuantity']);
             $deliveryDate = Carbon::parse($item['deliveryDate'])->format('Ymd');
+
+            array_push($payloadSamsung['items'], [
+                "modelCode" => $purchaseOrderItem->modelCode,
+                "orderQuantity" => $quantity,
+                "invoiceQuantity" => $item['invoiceQuantity'],
+                "orderPrice" => $price,
+                "invoicePrice" => $item['invoicePrice'],
+                "deliveryDate" => $deliveryDate
+            ]);
             
+            // $payloadSamsung['items'][] =  [
+            //     "modelCode" => $purchaseOrderItem->modelCode,
+            //     "orderQuantity" => $quantity,
+            //     "invoiceQuantity" => $item['invoiceQuantity'],
+            //     "orderPrice" => $price,
+            //     "invoicePrice" => $item['invoicePrice'],
+            //     "deliveryDate" => $deliveryDate
+            // ];
+
             $payload['items'][$itemId] =  [
                 "modelCode" => $purchaseOrderItem->modelCode,
                 "orderQuantity" => $quantity,
@@ -130,11 +156,12 @@ class PurchaseOrderController extends Controller
         
         $response = Http::withToken(session('samsung_token'))
             ->acceptJson()
-            ->post(env("SAMSUNG_SCONNECT_API") . self::PO_UPDATE_INTERFACE, $payload);
+            ->post(env("SAMSUNG_SCONNECT_API") . self::PO_UPDATE_INTERFACE, $payloadSamsung);
 
         if ($response->failed()) {
+            $apiErrorResponse = json_decode($response->body(), true);
             return redirect()->back()->withErrors([
-                "api_error" => "Cannot Connect to Samsung API. There something wrong with your request."
+                "api_error" => $apiErrorResponse['errors']
             ]);
         }
 
