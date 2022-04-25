@@ -26,6 +26,7 @@
                     <thead>
                         <tr>
                             <th scope="col">PO Number</th>
+                            <th scope="col">Site Code</th>
                             <th scope="col">IMEI</th>
                             <th scope="col">Status</th>
                         </tr>
@@ -34,6 +35,7 @@
                         @foreach ($imeiReturns as $imeiReturn)
                             <tr>
                                 <td>{{ $imeiReturn->poNumber }}</td>
+                                <td>{{ $imeiReturn->siteCode }}</td>
                                 <td>{{ $imeiReturn->imei }}</td>
                                 <td>{{ $imeiReturn->status }}</td>
                             </tr>
