@@ -41,7 +41,6 @@ class ImeiReturnController extends Controller
     {
         $payload = $request->except('_token');
 
-        $payload['siteCode'] = env('SITE_CODE');
         $response = Http::withToken(session('samsung_token'))
             ->acceptJson()
             ->post(env("SAMSUNG_SCONNECT_API") . self::IMEI_RETURN_INTERFACE, ['polist' => [$payload]]);
@@ -68,50 +67,5 @@ class ImeiReturnController extends Controller
             'success',
             'IMEI Received'
         );
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\ImeiReturn  $imeiReturn
-     * @return \Illuminate\Http\Response
-     */
-    public function show(ImeiReturn $imeiReturn)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\ImeiReturn  $imeiReturn
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(ImeiReturn $imeiReturn)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\ImeiReturn  $imeiReturn
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, ImeiReturn $imeiReturn)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\ImeiReturn  $imeiReturn
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(ImeiReturn $imeiReturn)
-    {
-        //
     }
 }

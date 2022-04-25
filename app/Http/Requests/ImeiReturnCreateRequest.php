@@ -15,6 +15,7 @@ class ImeiReturnCreateRequest extends FormRequest
     {
         return [
             'poNumber' => "required",
+            'siteCode' => "required",
             'imeilist.0.imei' => "required",
             'imeilist.0.status' => "required",
         ];
@@ -29,6 +30,7 @@ class ImeiReturnCreateRequest extends FormRequest
     {
         return [
             'poNumber.required' => 'PO Number is Required',
+            'siteCode.required' => 'siteCode field is required',
             'imeilist.0.imei.required' => 'IMEI is Required',
             'imeilist.0.status.required' => 'Status is Required',
         ];

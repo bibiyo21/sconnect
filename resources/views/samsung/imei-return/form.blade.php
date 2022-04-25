@@ -41,6 +41,16 @@
               </div>
 
               <div class="mb-3">
+                <label for="siteCode" class="block font-medium text-sm text-gray-700">Site Code</label>
+                <input value="{{ old('siteCode') }}" type="text" name="siteCode" id="siteCode" class="{{ $errors->has('siteCode') ? 'is-invalid' : '' }} form-control block rounded-md shadow-sm mt-1 block w-full mb-2">
+                @if ($errors->has('poNumber'))
+                  <div class="invalid-feedback">
+                    {{ $errors->get('siteCode')[0] }}
+                  </div>
+                @endif
+              </div>
+
+              <div class="mb-3">
                 <label for="imei" class="block font-medium text-sm text-gray-700">IMEI</label>
                 <input value="{{ old('imeilist.0.imei') }}" type="text" name="imeilist[0][imei]" id="imei" class="{{ $errors->has('imeilist.0.imei') ? 'is-invalid' : '' }} form-control block rounded-md shadow-sm mt-1 block w-full mb-2">
                 @if ($errors->has('imeilist.0.imei'))
