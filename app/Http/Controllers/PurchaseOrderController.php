@@ -38,7 +38,7 @@ class PurchaseOrderController extends Controller
                 $query = "
                     purchase_orders.*,
                     users.name as userName,
-                    STRING_AGG(lower(purchase_order_items.modelCode), ', ') as modelCode,
+                    STRING_AGG(lower('purchase_order_items.modelCode'), ', ') as modelCode,
                     SUM(purchase_order_items.orderQuantity) as orderQuantity,
                     SUM(purchase_order_items.invoiceQuantity) as invoiceQuantity,
                     SUM(purchase_order_items.invoicePrice) as invoicePrice,
