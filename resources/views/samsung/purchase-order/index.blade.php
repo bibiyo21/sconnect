@@ -1,139 +1,83 @@
 <x-app-layout>
-    @include('samsung.navbar')
-    
-    <div class="py-12">
-        <div class="mx-auto sm:px-6 lg:px-8">
-            <!-- <div class="card mb-2">
-                <div class="card-body">
-                    <form class="form-inline" action="">
-                        <label class="form-label px-3" for="date_start">Date Start: </label>
-                        <input class="form-control" type="date" name="date_start" id="date_start">
-                        <label class="form-label px-3" for="date_end">Date End: </label>
-                        <input class="form-control" type="date" name="date_end" id="date_end">
-                        <div class="btn-group pl-3 mr-auto">
-                            <button class="btn btn-primary" name="filter">Filter</button>
-                            <button class="btn btn-info" name="export">Export</button>
-                        </div>
-                        
-                    </form>
-                </div>
-            </div> -->
-            <div class="bg-whiteshadow-xl sm:rounded-lg table-responsive">
-                <table class="table table-hover table-condensed ">
-                    <thead>
-                        <tr>
-                            <!-- <th scope="col">Action</th> -->
-                            <th scope="col">Date sent</th>
-                            <th scope="col">Sales Order</th>
-                            <th scope="col">Billing Document</th>
-                            <th scope="col">Order Date</th>
-                            <th scope="col">PO Number</th>
-                            <th scope="col">Site Code</th>
-                            <th scope="col">Delivery Mode</th>
-                            <th scope="col">Payment Method</th>
-                            <th scope="col">Comment</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($purchaseOrders as $purchaseOrder) 
-                            <tr>
-                                <!-- <td>
-                                    <div class="btn-group">
-                                        <button class="btn btn-primary" 
-                                            data-bs-toggle="modal" 
-                                            data-bs-target="#purchase-order-modal"
-                                            data-purchase-order-id="{{ $purchaseOrder['id'] }}"
-                                            data-purchase-order-number="{{ $purchaseOrder['poNumber'] }}"
-                                        >
-                                            <i class="fas fa-paper-plane"></i> 
-                                        </button>
-                                        <button class="btn btn-primary" 
-                                            data-bs-toggle="modal" 
-                                            data-bs-target="#purchase-order-item-modal"
-                                            data-purchase-order-id="{{ $purchaseOrder['id'] }}"
-                                            data-purchase-order-number="{{ $purchaseOrder['poNumber'] }}"
-                                        >
-                                            <i class="fas fa-shopping-cart"></i> 
-                                        </button>
-                                    </div>
-                                    
-                                </td> -->
-                                <td>{{ $purchaseOrder['date_sent'] }}</td>
-                                <td>{{ $purchaseOrder['sales_order'] }}</td>
-                                <td>{{ $purchaseOrder['billing_document'] }}</td>
-                                <td>{{ $purchaseOrder['orderDate'] }}</td>
-                                <td><a class="text-primary" href="{{route('purchase-orders.edit', $purchaseOrder['id'])}}">{{ $purchaseOrder['poNumber'] }}</a></td>
-                                <td>{{ $purchaseOrder['siteCode'] }}</td>
-                                <td>{{ $purchaseOrder['deliveryMode'] }}</td>
-                                <td>{{ $purchaseOrder['paymentMethod'] }}</td>
-                                <td>{{ $purchaseOrder['comment'] }}</td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-            {{ $purchaseOrders->links() }}
+  @include('samsung.navbar')
+
+  <div class="py-12">
+    <div class="mx-auto sm:px-6 lg:px-8">
+      <div class="row">
+        <div class="col-4">
+          @include('shared.search')
         </div>
+        
+        <div class="col-8 d-flex justify-content-end">
+          @include('shared.pagination', ['paginator' => $purchaseOrders])
+        </div>
+      </div>
+      
+      <div class="bg-whiteshadow-xl sm:rounded-lg table-responsive">
+        <table class="table table-hover table-condensed ">
+          <thead>
+            <tr>
+              <th scope="col">Status</th>
+              <th scope="col">Sales Order</th>
+              <th scope="col">Billing Document</th>
+              <th scope="col">Order Date</th>
+              <th scope="col">PO Number</th>
+              <th scope="col">Model Code</th>
+              <th scope="col">Order Qty</th>
+              <th scope="col">Invoice Qty</th>
+              <th scope="col">Invoice Price</th>
+              <th scope="col">Total Price</th>
+              <th scope="col">Site Code</th>
+              <th scope="col">Delivery Mode</th>
+              <th scope="col">Payment Method</th>
+              <th scope="col">Comment</th>
+              <th scope="col">Updated By</th>
+            </tr>
+          </thead>
+          <tbody>
+            @foreach ($purchaseOrders as $purchaseOrder)
+            <tr>
+              <td class="<?php 
+                  switch($purchaseOrder->status) {
+                      case "I":
+                        echo "text-warning";
+                        break;
+                      case "A":
+                          echo "text-success";
+                          break;
+                      case "R":
+                        echo "text-danger";
+                        break; 
+                      case "D":
+                        echo "text-info";
+                        break;   
+                    } 
+                ?>">
+                @if (!empty($purchaseOrder->status))
+                  <i class="fas fa-circle"></i>
+                @endif
+              </td>
+              <td>{{ $purchaseOrder->sales_order }}</td>
+              <td>{{ $purchaseOrder->billing_document }}</td>
+              <td>{{ $purchaseOrder->orderDate }}</td>
+              <td><a class="text-primary" href="{{route('purchase-orders.edit', $purchaseOrder->id)}}">{{ $purchaseOrder->poNumber }}</a></td>
+              <td>{{ $purchaseOrder->modelCode }}</td>
+              <td>{{ $purchaseOrder->orderQuantity }}</td>
+              <td>{{ $purchaseOrder->invoiceQuantity }}</td>
+              <td>{{ $purchaseOrder->invoicePrice }}</td>
+              <td>{{ $purchaseOrder->totalPrice }}</td>
+              <td>{{ $purchaseOrder->siteCode }}</td>
+              <td>{{ $purchaseOrder->deliveryMode }}</td>
+              <td>{{ $purchaseOrder->paymentMethod }}</td>
+              <td>{{ $purchaseOrder->comment }}</td>
+              <td>{{ $purchaseOrder->userName }}</td>
+            </tr>
+            @endforeach
+          </tbody>
+        </table>
+      </div>
+      
     </div>
-    
+  </div>
+
 </x-app-layout>
-
-<!-- Modal -->
-<div class="modal fade" id="purchase-order-modal" tabindex="-1" aria-labelledby="purchaseOrderModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="purchase-order-modal-title"></h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="modal fade" id="purchase-order-item-modal" tabindex="-1" aria-labelledby="purchaseOrderModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="purchase-order-item-modal-title"></h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<script>
-    var purchaseOrderModal = document.getElementById('purchase-order-modal')
-    var purchaseOrderTitle = document.getElementById('purchase-order-modal-title')
-
-    purchaseOrderModal.addEventListener('show.bs.modal', function (event) {
-        var buttonPo = event.relatedTarget
-        var poNumber = buttonPo.getAttribute('data-purchase-order-number')
-
-        purchaseOrderTitle.textContent = 'Update Purchase order:  ' + poNumber
-    })
-
-    var purchaseOrderItemModal = document.getElementById('purchase-order-item-modal')
-    var purchaseOrderItemTitle = document.getElementById('purchase-order-item-modal-title')
-
-    purchaseOrderItemModal.addEventListener('show.bs.modal', function (event) {
-        var buttonPoItem = event.relatedTarget
-        var poId = buttonPoItem.getAttribute('data-purchase-order-id')
-        var poNumber = buttonPoItem.getAttribute('data-purchase-order-number')
-
-        purchaseOrderItemTitle.textContent = 'Purchase order items:  ' + poNumber
-    })
-</script>

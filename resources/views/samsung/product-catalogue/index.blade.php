@@ -3,24 +3,18 @@
     
     <div class="py-12">
         <div class="mx-auto sm:px-6 lg:px-8">
-            <div class="text-right">
-                <a href="{{ route('product-catalogues.create') }}" class="btn btn-primary text-right"> <i class="fas fa-plus"></i> Create Product Catalogue</a>
-            </div>
-            <!-- <div class="card mb-2">
-                <div class="card-body">
-                    <form class="form-inline" action="">
-                        <label class="form-label px-3" for="date_start">Date Start: </label>
-                        <input class="form-control" type="date" name="date_start" id="date_start">
-                        <label class="form-label px-3" for="date_end">Date End: </label>
-                        <input class="form-control" type="date" name="date_end" id="date_end">
-                        <div class="btn-group pl-3 mr-auto">
-                            <button class="btn btn-primary" name="filter">Filter</button>
-                            <button class="btn btn-info" name="export">Export</button>
-                        </div>
-                        
-                    </form>
+            <div class="row">
+                <div class="col-4">
+                @include('shared.search')
                 </div>
-            </div> -->
+                
+                <div class="col-8 d-flex justify-content-end">
+                    <a href="{{ route('product-catalogues.create') }}" class="btn btn-primary text-right"> <i class="fas fa-plus"></i> Create Product Catalogue</a>
+                    @include('shared.pagination', ['paginator' => $productCatalogues])
+                </div>
+            </div>
+            <div class="text-right">
+            </div>
             <div class="bg-whiteshadow-xl sm:rounded-lg table-responsive">
                 <table class="table table-hover table-condensed ">
                     <thead>
@@ -29,10 +23,10 @@
                             <th scope="col">Model Description</th>
                             <th scope="col">Price</th>
                             <th scope="col">Status</th>
-                            <th scope="col">Price</th>
                             <th scope="col">Discount</th>
                             <th scope="col">Date Start</th>
                             <th scope="col">Date End</th>
+                            <th scope="col">Updated By</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -41,17 +35,29 @@
                                 <td>{{ $productCatalogue->modelCode }}</td>
                                 <td>{{ $productCatalogue->modelDesc }}</td>
                                 <td>{{ $productCatalogue->price }}</td>
-                                <td>{{ $productCatalogue->status }}</td>
-                                <td>{{ $productCatalogue->discount }}</td>
+                                <td class="<?php 
+                                    switch($productCatalogue->status) {
+                                        case "I":
+                                            echo "text-danger";
+                                            break;
+                                        case "A":
+                                            echo "text-success";
+                                            break; 
+                                        } 
+                                    ?>">
+                                    @if (!empty($productCatalogue->status))
+                                        <i class="fas fa-circle"></i>
+                                    @endif
+                                </td>
                                 <td>{{ $productCatalogue->discount }}</td>
                                 <td>{{ $productCatalogue->startDate }}</td>
                                 <td>{{ $productCatalogue->endDate }}</td>
+                                <td>{{ $productCatalogue->userName }}</td>
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
             </div>
-            {{ $productCatalogues->links() }}
         </div>
     </div>
     

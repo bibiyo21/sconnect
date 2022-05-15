@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\ProductCatalogue;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 
 class ProductCatalogueController extends Controller
@@ -17,9 +18,27 @@ class ProductCatalogueController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $productCatalogues = ProductCatalogue::orderBy('updated_at', 'desc')->paginate(20);
+        $productCatalogues = DB::table('product_catalogues')
+            ->select(
+                DB::raw(
+                    "product_catalogues.*, users.name as userName"
+                )
+            )
+            ->orderBy('updated_at', 'desc')
+            ->join('users', 'users.id', '=', 'product_catalogues.update_by', 'left');
+        
+        if ($request->has('keyword')) {
+            $keyword = $request->get('keyword');
+            $productCatalogues = $productCatalogues
+                ->where(function ($query) use ($keyword) {
+                    $query->where('modelCode', 'like', '%'.$keyword.'%')
+                        ->orWhere('modelDesc', 'like', '%'.$keyword.'%')
+                    ;
+                });
+        }
+        $productCatalogues = $productCatalogues->paginate($request->get('limit', 100));
         return view('samsung.product-catalogue.index', compact('productCatalogues'));
     }
 
@@ -68,6 +87,7 @@ class ProductCatalogueController extends Controller
         $payload['discount'] = $payload['datelist'][0]['discount'];
         $payload['status'] = $payload['datelist'][0]['status'];
         $payload['price'] = $payload['datelist'][0]['price'];
+        $payload['update_by'] = auth()->user()->id;
 
         $modelCode = $payload['modelCode'];
         unset($payload['modelCode']);

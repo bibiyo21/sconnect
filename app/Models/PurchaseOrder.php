@@ -17,6 +17,7 @@ class PurchaseOrder extends Model
         'paymentMethod',
         'comment',
         'sales_order',
+        'billing_document',
         'api_order_id',
         'remarks',
         'status',

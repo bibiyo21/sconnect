@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ImeiReturnCreateRequest;
 use App\Models\ImeiReturn;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 
 class ImeiReturnController extends Controller
@@ -15,9 +16,30 @@ class ImeiReturnController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $imeiReturns = ImeiReturn::orderBy('updated_at', 'desc')->paginate(20);
+        $imeiReturns = DB::table('imei_returns')
+            ->select(
+                DB::raw(
+                    "imei_returns.*, users.name as userName"
+                )
+            )
+            ->join('users', 'users.id', '=', 'imei_returns.update_by', 'left')
+            ->orderBy('updated_at', 'desc');
+
+        if ($request->has('keyword')) {
+            $keyword = $request->get('keyword');
+            $imeiReturns = $imeiReturns
+                ->where(function ($query) use ($keyword) {
+                    $query->where('poNumber', 'like', '%'.$keyword.'%')
+                        ->orWhere('siteCode', 'like', '%'.$keyword.'%')
+                        ->orWhere('imei', 'like', '%'.$keyword.'%')
+                    ;
+                });
+        }
+
+        $imeiReturns = $imeiReturns->paginate($request->get('limit', 100));
+
         return view('samsung.imei-return.index', compact('imeiReturns'));
     }
 
@@ -53,6 +75,8 @@ class ImeiReturnController extends Controller
         }
 
         $payload['status'] = $payload['imeilist'][0]['status'];
+        $payload['update_by'] = auth()->user()->id;
+
 
         $imei = $payload['imeilist'][0]['imei'];
         unset($payload['imeilist'][0]['imei']);

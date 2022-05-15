@@ -3,24 +3,16 @@
     
     <div class="py-12">
         <div class="mx-auto sm:px-6 lg:px-8">
-            <div class="text-right">
-                <a href="{{ route('imei-returns.create') }}" class="btn btn-primary text-right"> <i class="fas fa-paper-plane"></i> Send IMEI Return</a>
-            </div>
-            <!-- <div class="card mb-2">
-                <div class="card-body">
-                    <form class="form-inline" action="">
-                        <label class="form-label px-3" for="date_start">Date Start: </label>
-                        <input class="form-control" type="date" name="date_start" id="date_start">
-                        <label class="form-label px-3" for="date_end">Date End: </label>
-                        <input class="form-control" type="date" name="date_end" id="date_end">
-                        <div class="btn-group pl-3 mr-auto">
-                            <button class="btn btn-primary" name="filter">Filter</button>
-                            <button class="btn btn-info" name="export">Export</button>
-                        </div>
-                        
-                    </form>
+            <div class="row">
+                <div class="col-4">
+                @include('shared.search')
                 </div>
-            </div> -->
+                
+                <div class="col-8 d-flex justify-content-end">
+                    <a href="{{ route('imei-returns.create') }}" class="btn btn-primary text-right"> <i class="fas fa-paper-plane"></i> Send IMEI Return</a>
+                    @include('shared.pagination', ['paginator' => $imeiReturns])
+                </div>
+            </div>
             <div class="bg-whiteshadow-xl sm:rounded-lg table-responsive">
                 <table class="table table-hover table-condensed ">
                     <thead>
@@ -29,6 +21,7 @@
                             <th scope="col">Site Code</th>
                             <th scope="col">IMEI</th>
                             <th scope="col">Status</th>
+                            <th scope="col">Updated By</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -37,7 +30,21 @@
                                 <td>{{ $imeiReturn->poNumber }}</td>
                                 <td>{{ $imeiReturn->siteCode }}</td>
                                 <td>{{ $imeiReturn->imei }}</td>
-                                <td>{{ $imeiReturn->status }}</td>
+                                <td class="<?php 
+                                    switch($imeiReturn->status) {
+                                        case "I":
+                                            echo "text-danger";
+                                            break;
+                                        case "A":
+                                            echo "text-success";
+                                            break; 
+                                        } 
+                                    ?>">
+                                    @if (!empty($imeiReturn->status))
+                                        <i class="fas fa-circle"></i>
+                                    @endif
+                                </td>
+                                <td>{{ $imeiReturn->userName }}</td>
                             </tr>
                         @endforeach
                     </tbody>
