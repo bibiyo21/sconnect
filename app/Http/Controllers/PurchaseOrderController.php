@@ -23,19 +23,33 @@ class PurchaseOrderController extends Controller
      */
     public function index(Request $request)
     {
+        $query = "
+            purchase_orders.*,
+            users.name as userName,
+            GROUP_CONCAT(purchase_order_items.modelCode SEPARATOR ' ') as modelCode,
+            SUM(purchase_order_items.orderQuantity) as orderQuantity,
+            SUM(purchase_order_items.invoiceQuantity) as invoiceQuantity,
+            SUM(purchase_order_items.invoicePrice) as invoicePrice,
+            SUM(purchase_order_items.totalPrice) as totalPrice
+        ";
+
+        switch (getenv('DB_CONNECTION')) {
+            case "pgsql":
+                $query = "
+                    purchase_orders.*,
+                    users.name as userName,
+                    string_agg(purchase_order_items.modelCode, ', ') as modelCode,
+                    SUM(purchase_order_items.orderQuantity) as orderQuantity,
+                    SUM(purchase_order_items.invoiceQuantity) as invoiceQuantity,
+                    SUM(purchase_order_items.invoicePrice) as invoicePrice,
+                    SUM(purchase_order_items.totalPrice) as totalPrice
+                ";
+                break;
+        }
+        // dd($query);
         $purchaseOrders = DB::table('purchase_orders')
             ->select(
-                DB::raw(
-                    "
-                        purchase_orders.*,
-                        users.name as userName,
-                        GROUP_CONCAT(purchase_order_items.modelCode SEPARATOR ' ') as modelCode,
-                        SUM(purchase_order_items.orderQuantity) as orderQuantity,
-                        SUM(purchase_order_items.invoiceQuantity) as invoiceQuantity,
-                        SUM(purchase_order_items.invoicePrice) as invoicePrice,
-                        SUM(purchase_order_items.totalPrice) as totalPrice
-                    "
-                )
+                DB::raw($query)
             )
             ->join('purchase_order_items', 'purchase_order_items.purchase_order_id', '=', 'purchase_orders.id')
             ->join('users', 'users.id', '=', 'purchase_orders.update_by', 'left')
