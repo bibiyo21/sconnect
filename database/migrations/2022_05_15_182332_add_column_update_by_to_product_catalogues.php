@@ -14,7 +14,7 @@ class AddColumnUpdateByToProductCatalogues extends Migration
     public function up()
     {
         Schema::table('product_catalogues', function (Blueprint $table) {
-            $table->integer('update_by');
+            $table->integer('update_by')->nullable();
         });
     }
 

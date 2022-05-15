@@ -14,7 +14,7 @@ class AddColumnUpdateByToPurchaseOrders extends Migration
     public function up()
     {
         Schema::table('purchase_orders', function (Blueprint $table) {
-            $table->integer('update_by');
+            $table->integer('update_by')->nullable();
         });
     }
 

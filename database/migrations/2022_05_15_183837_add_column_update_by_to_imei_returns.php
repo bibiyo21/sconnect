@@ -14,7 +14,7 @@ class AddColumnUpdateByToImeiReturns extends Migration
     public function up()
     {
         Schema::table('imei_returns', function (Blueprint $table) {
-            $table->integer('update_by');
+            $table->integer('update_by')->nullable();
         });
     }
 
