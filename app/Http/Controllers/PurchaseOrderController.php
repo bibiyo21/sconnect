@@ -26,7 +26,7 @@ class PurchaseOrderController extends Controller
         $query = "
             purchase_orders.*,
             users.name as userName,
-            GROUP_CONCAT(purchase_order_items.model_code SEPARATOR ' ') as modelCode,
+            GROUP_CONCAT(purchase_order_items.modelCode SEPARATOR ' ') as modelCode,
             SUM(purchase_order_items.orderQuantity) as orderQuantity,
             SUM(purchase_order_items.invoiceQuantity) as invoiceQuantity,
             SUM(purchase_order_items.invoicePrice) as invoicePrice,
@@ -38,7 +38,7 @@ class PurchaseOrderController extends Controller
                 $query = "
                     purchase_orders.*,
                     users.name as userName,
-                    STRING_AGG(purchase_order_items.model_code, ', ') as modelCode,
+                    STRING_AGG(lower(purchase_order_items.modelCode), ', ') as modelCode,
                     SUM(purchase_order_items.orderQuantity) as orderQuantity,
                     SUM(purchase_order_items.invoiceQuantity) as invoiceQuantity,
                     SUM(purchase_order_items.invoicePrice) as invoicePrice,
@@ -116,7 +116,7 @@ class PurchaseOrderController extends Controller
                     'discountedPrice' => $discountedPrice,
                     'totalPrice' => $totalPrice,
                     'taxcode' => $value['taxcode'],
-                    'model_code' => $value['modelCode'],
+                    'modelCode' => $value['modelCode'],
                     "update_by" => $userId
                 ]
             );
@@ -176,7 +176,7 @@ class PurchaseOrderController extends Controller
             $deliveryDate = Carbon::parse($item['deliveryDate'])->format('Ymd');
 
             array_push($payloadSamsung['items'], [
-                "model_code" => $purchaseOrderItem->modelCode,
+                "modelCode" => $purchaseOrderItem->modelCode,
                 "orderQuantity" => $quantity,
                 "invoiceQuantity" => $item['invoiceQuantity'],
                 "orderPrice" => $price,
@@ -194,7 +194,7 @@ class PurchaseOrderController extends Controller
             // ];
 
             $payload['items'][$itemId] =  [
-                "model_code" => $purchaseOrderItem->modelCode,
+                "modelCode" => $purchaseOrderItem->modelCode,
                 "orderQuantity" => $quantity,
                 "invoiceQuantity" => $item['invoiceQuantity'],
                 "orderPrice" => $price,
