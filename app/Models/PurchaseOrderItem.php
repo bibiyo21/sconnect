@@ -12,7 +12,7 @@ class PurchaseOrderItem extends Model
     protected $fillable = [
         'purchase_order_id', 
         'bundleCode', 
-        'modelCode', 
+        'model_code', 
         'orderQuantity',
         'invoiceQuantity',
         'invoicePrice',
