@@ -13,6 +13,7 @@ class ImeiReturn extends Model
         'poNumber',
         'siteCode',
         'imei',
-        'status'
+        'status',
+        'update_by'
     ];
 }

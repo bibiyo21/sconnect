@@ -21,5 +21,6 @@ class PurchaseOrder extends Model
         'api_order_id',
         'remarks',
         'status',
+        'update_by',
     ];
 }

@@ -69,6 +69,7 @@ class PurchaseOrderController extends Controller
      */
     public function store(PurchaseOrderCreateRequest $request)
     {
+        $userId = auth()->user()->id;
         $purcaseOrder = PurchaseOrder::updateOrCreate(
             ["poNumber" => $request->get('poNumber')],
             [
@@ -79,12 +80,12 @@ class PurchaseOrderController extends Controller
                 "comment" => $request->get('comment'),
                 "sales_order" => $request->get('sales_order'),
                 "api_order_id" => $request->get('api_order_id'),
-                "update_by" => auth()->user()->id
+                "update_by" => $userId
             ]
         );
 
         $purchaseOrderId = $purcaseOrder->id;
-        foreach ($request->get('items') as $key => $value) {
+        foreach ($request->get('items') as $value) {
             $price = doubleval($value['price']);
             $discount = doubleval($value['discount']);
             $quantity = intval($value['orderQuantity']);
@@ -102,7 +103,7 @@ class PurchaseOrderController extends Controller
                     'totalPrice' => $totalPrice,
                     'taxcode' => $value['taxcode'],
                     'modelCode' => $value['modelCode'],
-                    "update_by" => auth()->user()->id
+                    "update_by" => $userId
                 ]
             );
         }

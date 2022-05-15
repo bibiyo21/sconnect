@@ -22,5 +22,6 @@ class PurchaseOrderItem extends Model
         'discountedPrice',
         'totalPrice',
         'taxcode',
+        'update_by',
     ];
 }

@@ -16,6 +16,7 @@ class ProductCatalogue extends Model
         "discount",
         "status",
         "startDate",
-        "endDate"
+        "endDate",
+        "update_by"
     ];
 }
