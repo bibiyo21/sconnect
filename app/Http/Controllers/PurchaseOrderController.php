@@ -39,10 +39,10 @@ class PurchaseOrderController extends Controller
                     purchase_orders.*,
                     users.name as userName,
                     STRING_AGG(lower('purchase_order_items.modelCode'), ', ') as modelCode,
-                    SUM(lower('purchase_order_items.orderQuantity'))::DOUBLE as orderQuantity,
-                    SUM(lower('purchase_order_items.invoiceQuantity'))::DOUBLE as invoiceQuantity,
-                    SUM(lower('purchase_order_items.invoicePrice'))::DOUBLE as invoicePrice,
-                    SUM(lower('purchase_order_items.totalPrice'))::DOUBLE as totalPrice
+                    SUM(lower('purchase_order_items.orderQuantity'))::DOUBLE PRECISION as orderQuantity,
+                    SUM(lower('purchase_order_items.invoiceQuantity'))::DOUBLE PRECISION as invoiceQuantity,
+                    SUM(lower('purchase_order_items.invoicePrice'))::DOUBLE PRECISION as invoicePrice,
+                    SUM(lower('purchase_order_items.totalPrice'))::DOUBLE PRECISION as totalPrice
                 ";
                 break;
         }
