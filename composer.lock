@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "446215d9dc088a140b0907702e904e0b",
+    "content-hash": "dfb56b0d8bdcd8f8d525a0089bf317c8",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -4327,69 +4327,6 @@
                 }
             ],
             "time": "2022-03-27T21:42:02+00:00"
-        },
-        {
-            "name": "shiftonelabs/laravel-nomad",
-            "version": "2.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/shiftonelabs/laravel-nomad.git",
-                "reference": "6a8921e7a494dc45f49d334d9f733f049e55b525"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/shiftonelabs/laravel-nomad/zipball/6a8921e7a494dc45f49d334d9f733f049e55b525",
-                "reference": "6a8921e7a494dc45f49d334d9f733f049e55b525",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/database": ">=4.1",
-                "illuminate/support": ">=4.1",
-                "php": ">=5.4.0"
-            },
-            "require-dev": {
-                "laravel/framework": ">=4.1",
-                "mockery/mockery": "~0.9",
-                "phpunit/phpunit": "~4.0",
-                "shiftonelabs/codesniffer-standard": "0.*",
-                "squizlabs/php_codesniffer": "2.*"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "ShiftOneLabs\\LaravelNomad\\LaravelNomadServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "ShiftOneLabs\\LaravelNomad\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Patrick Carlo-Hickman",
-                    "email": "patrick@shiftonelabs.com"
-                }
-            ],
-            "description": "Add extra functionality to Laravel migrations.",
-            "homepage": "https://github.com/shiftonelabs/laravel-nomad",
-            "keywords": [
-                "custom",
-                "laravel",
-                "lumen",
-                "migration"
-            ],
-            "support": {
-                "issues": "https://github.com/shiftonelabs/laravel-nomad/issues",
-                "source": "https://github.com/shiftonelabs/laravel-nomad"
-            },
-            "time": "2020-01-15T18:51:45+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
