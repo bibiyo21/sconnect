@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProductCatalogueCreateRequest;
-use App\Models\Product;
 use App\Models\ProductCatalogue;
 use Carbon\Carbon;
 use Illuminate\Http\Request;

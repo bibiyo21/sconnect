@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PurchaseOrderCreateRequest;
 use App\Http\Requests\PurchaseOrderUpdateRequest;
-use App\Models\Product;
+use App\Exports\PurchaseOrderExports;
 use App\Models\PurchaseOrder;
 use App\Models\PurchaseOrderItem;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
+use Maatwebsite\Excel\Facades\Excel;
 
 class PurchaseOrderController extends Controller
 {
@@ -23,6 +24,10 @@ class PurchaseOrderController extends Controller
      */
     public function index(Request $request)
     {
+        if ($request->has('export')) {
+            return Excel::download(new PurchaseOrderExports, Carbon::now()->format('Y-m-d') . ' - Purchase Orders.xlsx');
+        }
+
         $query = "
             purchase_orders.*,
             users.name as userName,
@@ -46,7 +51,6 @@ class PurchaseOrderController extends Controller
                 ";
                 break;
         }
-        // dd($query);
         $purchaseOrders = DB::table('purchase_orders')
             ->select(
                 DB::raw($query)
