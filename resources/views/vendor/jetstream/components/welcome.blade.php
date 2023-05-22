@@ -4,6 +4,6 @@
     </div>
 
     <div class="mt-8 text-2xl">
-        Welcome to Cognetics StartUp Dashboard
+        Welcome to Mugi StartUp Dashboard
     </div>
 </div>

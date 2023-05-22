@@ -16,10 +16,10 @@ class AdminSeeder extends Seeder
     public function run()
     {
         DB::table('users')->insert([
-            'name' => "Admin Techroom",
+            'name' => "Admin Mugi",
             'email' => "admin@gmail.com",
             'email_verified_at' => now(),
-            'password' => bcrypt('techroom2022'), // password
+            'password' => bcrypt('mugi2023'), // password
             'remember_token' => Str::random(10),
         ]);
     }
