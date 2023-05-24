@@ -34,6 +34,9 @@ class SamsungApiKeepAlive
         ]);
 
         $samsungApiResponse = json_decode($response->getBody()->getContents(), true);
+        if (is_null($samsungApiResponse['token'])) {
+            abort(401, "Unauthorized Access!");
+        }
         session()->put('samsung_token', $samsungApiResponse['token']);
         // }
         
