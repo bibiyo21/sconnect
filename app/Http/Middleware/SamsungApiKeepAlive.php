@@ -39,7 +39,7 @@ class SamsungApiKeepAlive
         
         return $next($request);
         } catch (Exception $e) {
-            throw $e;
+            abort(401, "Unauthorized Access!");
         }
     }
 }
