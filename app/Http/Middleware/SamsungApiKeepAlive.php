@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Exception;
 use GuzzleHttp\Exception\RequestException;
 use Illuminate\Http\Request;
 use Psr\Http\Message\ResponseInterface;
@@ -20,14 +21,15 @@ class SamsungApiKeepAlive
 
     public function handle(Request $request, Closure $next)
     {
-        // if (!session()->has('samsung_token')) {
+        try {
+            // if (!session()->has('samsung_token')) {
         $client = new \GuzzleHttp\Client();
         $response = $client->request(
             'POST', 
-            env('SAMSUNG_SCONNECT_API', "https://scsi.sec.samsung.net/pcs/"). self::AUTH_URL, [
+            env('SAMSUNG_SCONNECT_API'). self::AUTH_URL, [
             'json' => [
-                "userID" => env("SAMSUNG_SCONNECT_USER", "cog"),
-                "password" => env("SAMSUNG_SCONNECT_PASS", "evne20&plC01")
+                "userID" => env("SAMSUNG_SCONNECT_USER"),
+                "password" => env("SAMSUNG_SCONNECT_PASS")
             ]
         ]);
 
@@ -36,5 +38,8 @@ class SamsungApiKeepAlive
         // }
         
         return $next($request);
+        } catch (Exception $e) {
+            throw $e;
+        }
     }
 }
