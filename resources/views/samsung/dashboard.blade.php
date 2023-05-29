@@ -10,7 +10,7 @@
                     </div>
 
                     <div class="mt-8 text-2xl">
-                        Welcome to Cognetics Samsung Dashboard
+                        Welcome to Mugi Samsung Dashboard
                     </div>
                 </div>
             </div>
