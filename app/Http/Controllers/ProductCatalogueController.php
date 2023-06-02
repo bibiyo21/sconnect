@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProductCatalogueCreateRequest;
+use App\Http\Requests\{
+    ProductCatalogueCreateRequest,
+    ProductCatalogueCreateAPIRequest
+};
 use App\Models\ProductCatalogue;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -83,7 +86,7 @@ class ProductCatalogueController extends Controller
 
         $payload['startDate'] = $payload['datelist'][0]['startDate'];
         $payload['endDate'] = $payload['datelist'][0]['endDate'];
-        $payload['discount'] = $payload['datelist'][0]['discount'];
+        $payload['discount'] = $payload['datelist'][0]['discount'] ?? 0.0;
         $payload['status'] = $payload['datelist'][0]['status'];
         $payload['price'] = $payload['datelist'][0]['price'];
         $payload['update_by'] = auth()->user()->id;
@@ -101,5 +104,34 @@ class ProductCatalogueController extends Controller
             'success',
             'Model Add/Update'
         );
+    }
+
+    public function storeCataloague (ProductCatalogueCreateAPIRequest $request) 
+    {
+        $payload = $request->except('_token');
+
+        $response = Http::withToken(session('samsung_token'))
+            ->acceptJson()
+            ->post(env("SAMSUNG_SCONNECT_API") . self::PRODUCT_CATALOGUE_INTERFACE, $payload);
+        
+        if ($response->failed()) {
+            $apiErrorResponse = json_decode($response->body(), true);
+            return redirect()->back()->withErrors([
+                "api_error" => $apiErrorResponse['errors']
+            ]);
+        }
+
+        foreach ($payload['catalogues']['datelist'] as $requestProductCataloguePayload) {
+            $requestProductCatalogue['update_by'] = auth()->user()->id;
+
+            $modelCode = $payload['modelCode'];
+            unset($payload['modelCode']);
+            unset($payload['datelist']);
+
+            ProductCatalogue::updateOrCreate(
+                ['modelCode' => $modelCode],
+                $payload
+            );
+        }
     }
 }
