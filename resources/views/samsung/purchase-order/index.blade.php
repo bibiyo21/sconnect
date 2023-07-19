@@ -27,7 +27,7 @@
               <th scope="col">Invoice Qty</th>
               <th scope="col">Invoice Price</th>
               <th scope="col">Total Price</th>
-              <th scope="col">Site Code</th>
+              <th scope="col">Site Name</th>
               <th scope="col">Delivery Mode</th>
               <th scope="col">Payment Method</th>
               <th scope="col">Comment</th>
