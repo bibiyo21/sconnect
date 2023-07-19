@@ -82,89 +82,91 @@
 
               <h3 class="h3 mb-2">Items</h3>
 
-              @foreach ($purchaseOrderItems as $purchaseOrderItem)
-              <fieldset class="border p-3 mb-3">
-                <div class="mb-3">
-                  <label for="modelCode" class="block font-medium text-sm text-gray-700">Model Code</label>
-                  <input disabled readonly type="text" name="item[{{$purchaseOrderItem->id}}][modelCode]" id="modelCode" class="form-control block rounded-md shadow-sm mt-1 block w-full" value="{{ $purchaseOrderItem->modelCode }}" />
-                </div>
-
-                <div class="mb-3">
-                  <label for="orderQuantity" class="block font-medium text-sm text-gray-700">Order Quantity</label>
-                  <input type="text" name="item[{{$purchaseOrderItem->id}}][orderQuantity]" id="orderQuantity" class="{{ $errors->has('item.'. $purchaseOrderItem->id .'.orderQuantity') ? 'is-invalid' : '' }} form-control block rounded-md shadow-sm mt-1 block w-full" value="{{ old('item.'. $purchaseOrderItem->id .'.orderQuantity', $purchaseOrderItem->orderQuantity) }}" />
-                  @if ($errors->has('item.'. $purchaseOrderItem->id .'.orderQuantity'))
-                    <div  class="invalid-feedback">
-                      This is required.
-                    </div>
-                  @endif
-                </div>
-
-                <div class="mb-3">
-                  <label for="invoiceQuantity" class="block font-medium text-sm text-gray-700">Invoice Quantity</label>
-                  <input type="text" name="item[{{$purchaseOrderItem->id}}][invoiceQuantity]" id="invoiceQuantity" class="{{ $errors->has('item.'. $purchaseOrderItem->id .'.invoiceQuantity') ? 'is-invalid' : '' }} form-control block rounded-md shadow-sm mt-1 block w-full" value="{{ old('item.'. $purchaseOrderItem->id .'.invoiceQuantity', $purchaseOrderItem->invoiceQuantity) }}" />
-                  @if ($errors->has('item.'. $purchaseOrderItem->id .'.invoiceQuantity'))
-                    <div  class="invalid-feedback">
-                      This is required.
-                    </div>
-                  @endif
-                </div>
-
-                <div class="mb-3">
-                  <label for="invoicePrice" class="block font-medium text-sm text-gray-700">Invoice Price</label>
-                  <input type="text" name="item[{{$purchaseOrderItem->id}}][invoicePrice]" id="invoicePrice" class="{{ $errors->has('item.'. $purchaseOrderItem->id .'.invoicePrice') ? 'is-invalid' : '' }} form-control block rounded-md shadow-sm mt-1 block w-full" value="{{ old('item.'. $purchaseOrderItem->id .'.invoicePrice', $purchaseOrderItem->invoicePrice) }}" />
-                  @if ($errors->has('item.'. $purchaseOrderItem->id .'.invoicePrice'))
-                    <div  class="invalid-feedback">
-                      This is required.
-                    </div>
-                  @endif
-                </div>
-
-                <div class="mb-3">
-                  <label for="deliveryDate" class="block font-medium text-sm text-gray-700">Delivery date</label>
-                  <input 
-                    type="date" 
-                    name="item[{{$purchaseOrderItem->id}}][deliveryDate]" 
-                    id="deliveryDate" 
-                    class="{{ $errors->has('item.'. $purchaseOrderItem->id .'.deliveryDate') ? 'is-invalid' : '' }} form-control block rounded-md shadow-sm mt-1 block w-full" 
-                    value="{{ !empty($purchaseOrderItem->deliveryDate) || old('item.'. $purchaseOrderItem->id .'.deliveryDate') ? date('Y-m-d', strtotime(old('item.'. $purchaseOrderItem->id .'.deliveryDate', $purchaseOrderItem->deliveryDate))) : '' }}" />
-                  @if ($errors->has('item.'. $purchaseOrderItem->id .'.deliveryDate'))
-                    <div  class="invalid-feedback">
-                      This is required.
-                    </div>
-                  @endif
-                  </div>
-
-                <div class="mb-3">
-                  <label for="price" class="block font-medium text-sm text-gray-700">Order Price</label>
-                  <input type="text" name="item[{{$purchaseOrderItem->id}}][price]" id="price" class="{{ $errors->has('item.'. $purchaseOrderItem->id .'.price') ? 'is-invalid' : '' }} form-control block rounded-md shadow-sm mt-1 block w-full" value="{{ old('item.'. $purchaseOrderItem->id .'.price', $purchaseOrderItem->price) }}" />
-                  @if ($errors->has('item.'. $purchaseOrderItem->id .'.price'))
-                    <div  class="invalid-feedback">
-                      This is required.
-                    </div>
-                  @endif
-                </div>
-
-                <div class="mb-3">
-                  <label for="discount" class="block font-medium text-sm text-gray-700">Discount</label>
-                  <input type="text" name="item[{{$purchaseOrderItem->id}}][discount]" id="discount" class="{{ $errors->has('item.'. $purchaseOrderItem->id .'.discount') ? 'is-invalid' : '' }} form-control block rounded-md shadow-sm mt-1 block w-full" value="{{ old('item.'. $purchaseOrderItem->id .'.discount', $purchaseOrderItem->discount) }}" />
-                  @if ($errors->has('item.'. $purchaseOrderItem->id .'.discount'))
-                    <div  class="invalid-feedback">
-                      This is required.
-                    </div>
-                  @endif
-                </div>
-
-                <div class="mb-3">
-                  <label for="taxcode" class="block font-medium text-sm text-gray-700">Taxcode</label>
-                  <input type="text" name="item[{{$purchaseOrderItem->id}}][taxcode]" id="taxcode" class="{{ $errors->has('item.'. $purchaseOrderItem->id .'.taxcode') ? 'is-invalid' : '' }} form-control block rounded-md shadow-sm mt-1 block w-full" value="{{ old('item.'. $purchaseOrderItem->id .'.taxcode', $purchaseOrderItem->taxcode) }}" />
-                  @if ($errors->has('item.'. $purchaseOrderItem->id .'.taxcode'))
-                    <div  class="invalid-feedback">
-                      This is required.
-                    </div>
-                  @endif
-                </div>
-              </fieldset>
-              @endforeach
+              <div class="table-responsive">
+                <table class="table table-bordered table-condensed">
+                  <thead>
+                    <tr>
+                      <th>Model Code</th>
+                      <th>Order Quantity</th>
+                      <th>Invoice Quantity</th>
+                      <th>Invoice Price</th>
+                      <th>Delivery Date</th>
+                      <th>Order Price</th>
+                      <th>Discount</th>
+                      <th>Taxcode</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  @foreach ($purchaseOrderItems as $purchaseOrderItem)
+                    <tr>
+                      <td>
+                        <input disabled readonly type="text" name="item[{{$purchaseOrderItem->id}}][modelCode]" class="form-control-sm block rounded-md shadow-sm mt-1 block w-full" value="{{ $purchaseOrderItem->modelCode }}" />
+                      </td>
+                      <td>
+                        <input type="number" name="item[{{$purchaseOrderItem->id}}][orderQuantity]" class="{{ $errors->has('item.'. $purchaseOrderItem->id .'.orderQuantity') ? 'is-invalid' : '' }} form-control-sm block rounded-md shadow-sm mt-1 block w-full" value="{{ old('item.'. $purchaseOrderItem->id .'.orderQuantity', $purchaseOrderItem->orderQuantity) }}" />
+                        @if ($errors->has('item.'. $purchaseOrderItem->id .'.orderQuantity'))
+                          <div  class="invalid-feedback">
+                            This is required.
+                          </div>
+                        @endif
+                      </td>
+                      <td>
+                        <input type="number" name="item[{{$purchaseOrderItem->id}}][invoiceQuantity]" class="{{ $errors->has('item.'. $purchaseOrderItem->id .'.invoiceQuantity') ? 'is-invalid' : '' }} form-control-sm block rounded-md shadow-sm mt-1 block w-full invoice-quantity" value="{{ old('item.'. $purchaseOrderItem->id .'.invoiceQuantity', $purchaseOrderItem->invoiceQuantity) }}" />
+                        @if ($errors->has('item.'. $purchaseOrderItem->id .'.invoiceQuantity'))
+                          <div  class="invalid-feedback">
+                            This is required.
+                          </div>
+                        @endif
+                      </td>
+                      <td>
+                        <input type="number" name="item[{{$purchaseOrderItem->id}}][invoicePrice]" class="{{ $errors->has('item.'. $purchaseOrderItem->id .'.invoicePrice') ? 'is-invalid' : '' }} form-control-sm block rounded-md shadow-sm mt-1 block w-full invoice-price" value="{{ old('item.'. $purchaseOrderItem->id .'.invoicePrice', $purchaseOrderItem->invoicePrice) }}" readonly  />
+                        @if ($errors->has('item.'. $purchaseOrderItem->id .'.invoicePrice'))
+                          <div  class="invalid-feedback">
+                            This is required.
+                          </div>
+                        @endif
+                      </td>
+                      <td>
+                        <input 
+                          type="date" 
+                          name="item[{{$purchaseOrderItem->id}}][deliveryDate]" 
+                          class="{{ $errors->has('item.'. $purchaseOrderItem->id .'.deliveryDate') ? 'is-invalid' : '' }} form-control-sm block rounded-md shadow-sm mt-1 block w-full" 
+                          value="{{ !empty($purchaseOrderItem->deliveryDate) || old('item.'. $purchaseOrderItem->id .'.deliveryDate') ? date('Y-m-d', strtotime(old('item.'. $purchaseOrderItem->id .'.deliveryDate', $purchaseOrderItem->deliveryDate))) : '' }}" />
+                        @if ($errors->has('item.'. $purchaseOrderItem->id .'.deliveryDate'))
+                          <div  class="invalid-feedback">
+                            This is required.
+                          </div>
+                        @endif
+                      </td>
+                      <td>
+                        <input type="number" name="item[{{$purchaseOrderItem->id}}][price]" class="{{ $errors->has('item.'. $purchaseOrderItem->id .'.price') ? 'is-invalid' : '' }} form-control-sm block rounded-md shadow-sm mt-1 block w-full order-price" value="{{ old('item.'. $purchaseOrderItem->id .'.price', $purchaseOrderItem->price) }}" />
+                        @if ($errors->has('item.'. $purchaseOrderItem->id .'.price'))
+                          <div  class="invalid-feedback">
+                            This is required.
+                          </div>
+                        @endif
+                      </td>
+                      <td>
+                        <input type="number" name="item[{{$purchaseOrderItem->id}}][discount]" class="{{ $errors->has('item.'. $purchaseOrderItem->id .'.discount') ? 'is-invalid' : '' }} form-control-sm block rounded-md shadow-sm mt-1 block w-full" value="{{ old('item.'. $purchaseOrderItem->id .'.discount', $purchaseOrderItem->discount) }}" />
+                        @if ($errors->has('item.'. $purchaseOrderItem->id .'.discount'))
+                          <div  class="invalid-feedback">
+                            This is required.
+                          </div>
+                        @endif
+                      </td>
+                      <td>
+                        <input type="text" name="item[{{$purchaseOrderItem->id}}][taxcode]" class="{{ $errors->has('item.'. $purchaseOrderItem->id .'.taxcode') ? 'is-invalid' : '' }} form-control-sm block rounded-md shadow-sm mt-1 block w-full" value="{{ old('item.'. $purchaseOrderItem->id .'.taxcode', $purchaseOrderItem->taxcode) }}" />
+                        @if ($errors->has('item.'. $purchaseOrderItem->id .'.taxcode'))
+                          <div  class="invalid-feedback">
+                            This is required.
+                          </div>
+                        @endif
+                      </td>
+                    </tr>
+                  @endforeach
+                  </tbody>
+                </table>
+              </div>
             </div>
             <div class="flex items-center justify-end px-4 py-3 bg-gray-50 text-right sm:px-6">
               <button id="save-button" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:shadow-outline-gray disabled:opacity-25 transition ease-in-out duration-150">
@@ -186,5 +188,41 @@
 
     button.setAttribute('disabled', 'disabled');
     button.classList.add('disabled');
-  })
+  });
+
+  var invoiceQuanity = document.querySelectorAll('.invoice-quantity');
+  var orderPrice = document.querySelectorAll('.order-price');
+
+  function computeInvoicePriceByInvoiceQuantity (event) {
+
+    let invoicePriceEl = event.target.closest('tr').querySelector('.invoice-price')
+    let orderPriceEl = event.target.closest('tr').querySelector('.order-price')
+
+    let orderPrice = orderPriceEl.value.length ? orderPriceEl.value : 0;
+
+    let invoicePrice = orderPrice * event.target.value; 
+
+    invoicePriceEl.value = invoicePrice
+  } 
+
+  function computeInvoicePriceByOrderPrice (event) {
+    let invoicePriceEl = event.target.closest('tr').querySelector('.invoice-price')
+    let invoicequantityEl = event.target.closest('tr').querySelector('.invoice-quantity')
+
+    let invoicequantity = invoicequantityEl.value.length ? invoicequantityEl.value : 0;
+
+    let invoicePrice = invoicequantity * event.target.value; 
+
+    invoicePriceEl.value = invoicePrice
+    }
+
+  for (let i = 0; i < invoiceQuanity.length; i++) {
+    invoiceQuanity[i].addEventListener("change", computeInvoicePriceByInvoiceQuantity);
+    invoiceQuanity[i].addEventListener("keyup", computeInvoicePriceByInvoiceQuantity);
+  }
+
+  for (let i = 0; i < orderPrice.length; i++) {
+    orderPrice[i].addEventListener("change", computeInvoicePriceByOrderPrice);
+    orderPrice[i].addEventListener("keyup", computeInvoicePriceByOrderPrice);
+  }
 </script>
